@@ -2,8 +2,46 @@
   "openapi": "3.0.0",
   "info": {
     "title": "Road Ender - API (base)",
-    "version": "0.1.0"
+    "version": "0.1.0",
+    "description": "Base OpenAPI generated from diagram - contains CRUD endpoints and example schemas. Security: Bearer JWT"
   },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "name": { "type": "string" },
+          "email": { "type": "string", "format": "email" }
+        }
+      },
+      "Guide": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "user_id": { "type": "integer" },
+          "bio": { "type": "string" }
+        }
+      },
+      "Booking": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "client_id": { "type": "integer" },
+          "guide_id": { "type": "integer" },
+          "zone_id": { "type": "integer" }
+        }
+      }
+    }
+  },
+  "security": [ { "bearerAuth": [] } ],
   "paths": {
     "/api/users": {
       "get": { "summary": "List users" },
