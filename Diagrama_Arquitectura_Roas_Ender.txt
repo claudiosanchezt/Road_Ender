@@ -1,0 +1,186 @@
+
+
++-------------------+         +-------------------+         +-------------------+
+|      users        |<--------|     bookings      |-------->|      guides       |
+|-------------------|         |-------------------|         |-------------------|
+| id (PK)           |    +--->| id (PK)           |<---+    | id (PK)           |
+| ...               |    |    | client_id (FK)    |    |    | user_id (FK)      |
+-------------------+    |    | guide_id (FK)     |    |    | ...               |
+                         |    | zone_id (FK)      |    |    +-------------------+
+                         |    | tourist_place_id  |    |
+                         |    | ...               |    |
+                         |    +-------------------+    |
+                         |                             |
+                         |    +-------------------+    |
+                         +----|    reviews        |<---+
+                              |-------------------|
+                              | id (PK)           |
+                              | booking_id (FK)    |
+                              | client_id (FK)     |
+                              | guide_id (FK)      |
+                              | ...                |
+                              +--------------------+
+
+-------------------+         +-------------------+         +-------------------+
+|     zones         |<--------|   guide_zones     |-------->|      guides       |
+|-------------------|         |-------------------|         |-------------------|
+| id (PK)           |         | guide_id (FK)     |         | id (PK)           |
+| ...               |         | zone_id (FK)      |         | ...               |
+-------------------+         +-------------------+         +-------------------+
+
+-------------------+         +-------------------+         +-------------------+
+| tourist_places    |<--------| guide_tourist_... |-------->|      guides       |
+|-------------------|         |-------------------|         |-------------------|
+| id (PK)           |         | guide_id (FK)     |         | id (PK)           |
+| ...               |         | tourist_place_id  |         | ...               |
+-------------------+         +-------------------+         +-------------------+
+
+-------------------+         +-------------------+         +-------------------+
+| specialties       |<--------| guide_specialties  |-------->|      guides       |
+|-------------------|         |-------------------|         |-------------------|
+| id (PK)           |         | guide_id (FK)     |         | id (PK)           |
+| ...               |         | specialty_id (FK) |         | ...               |
+-------------------+         +-------------------+         +-------------------+
+
+-------------------+         +-------------------+         +-------------------+
+| languages         |<--------| guide_languages   |-------->|      guides       |
+|-------------------|         |-------------------|         |-------------------|
+| id (PK)           |         | guide_id (FK)     |         | id (PK)           |
+| ...               |         | language_id (FK)  |         | ...               |
+-------------------+         +-------------------+         +-------------------+
+
+-------------------+         +-------------------+         +-------------------+
+| emergency_contacts|<--------|      guides       |         |   payments        |
+|-------------------|         |-------------------|         |-------------------|
+| id (PK)           |         | emergency_contact_id (FK)   | id (PK)           |
+| ...               |         | ...               |         | booking_id (FK)   |
+-------------------+         +-------------------+         | ...               |
+                                                          +-------------------+
+
+-------------------+         +-------------------+         +-------------------+
+| favorite_zones    |<--------|      users        |         | favorite_tourist_places |
+|-------------------|         |-------------------|         |-------------------|
+| id (PK)           |         | id (PK)           |         | id (PK)           |
+| user_id (FK)      |         | ...               |         | user_id (FK)      |
+| zone_id (FK)      |         +-------------------+         | tourist_place_id (FK) |
+-------------------+                                       +-------------------+
+
+-------------------+         +-------------------+         +-------------------+
+| notifications     |<--------|      users        |         | weather_alerts     |
+|-------------------|         |-------------------|         |-------------------|
+| id (PK)           |         | id (PK)           |         | id (PK)           |
+| user_id (FK)      |         | ...               |         | zone_id (FK)      |
+| ...               |         +-------------------+         | ...               |
+-------------------+                                       +-------------------+
+
+-------------------+         +-------------------+         +-------------------+
+| specialty_categories        | specialties       |         | states            |
+|-------------------|         |-------------------|         |-------------------|
+| id (PK)           |         | id (PK)           |         | id (PK)           |
+| ...               |         | category_id (FK)  |         | ...               |
+-------------------+         | ...               |         +-------------------+
+                              +-------------------+
+
+-------------------+
+| continents        |
+|-------------------|
+| id (PK)           |
+| ...               |
+-------------------+
+
+-------------------+
+| countries         |
+|-------------------|
+| id (PK)           |
+| continent_id (FK) |
+| ...               |
+-------------------+
+
+
+#####################################################################
+
+Usuarios (users)
+GET /api/users — Listar usuarios
+GET /api/users/:id — Obtener usuario por ID
+POST /api/users — Crear usuario
+PUT /api/users/:id — Actualizar usuario
+DELETE /api/users/:id — Eliminar usuario
+Guías (guides)
+GET /api/guides — Listar guías
+GET /api/guides/:id — Obtener guía por ID
+POST /api/guides — Crear guía
+PUT /api/guides/:id — Actualizar guía
+DELETE /api/guides/:id — Eliminar guía
+Reservas (bookings)
+GET /api/bookings — Listar reservas
+GET /api/bookings/:id — Obtener reserva por ID
+POST /api/bookings — Crear reserva
+PUT /api/bookings/:id — Actualizar reserva
+DELETE /api/bookings/:id — Eliminar reserva
+Zonas (zones)
+GET /api/zones
+GET /api/zones/:id
+POST /api/zones
+PUT /api/zones/:id
+DELETE /api/zones/:id
+Lugares turísticos (tourist_places)
+GET /api/tourist-places
+GET /api/tourist-places/:id
+POST /api/tourist-places
+PUT /api/tourist-places/:id
+DELETE /api/tourist-places/:id
+Especialidades (specialties)
+GET /api/specialties
+GET /api/specialties/:id
+POST /api/specialties
+PUT /api/specialties/:id
+DELETE /api/specialties/:id
+Idiomas (languages)
+GET /api/languages
+GET /api/languages/:id
+POST /api/languages
+PUT /api/languages/:id
+DELETE /api/languages/:id
+Pagos (payments)
+GET /api/payments
+GET /api/payments/:id
+POST /api/payments
+PUT /api/payments/:id
+DELETE /api/payments/:id
+Favoritos, notificaciones, alertas, etc.
+GET /api/favorites
+GET /api/notifications
+GET /api/weather-alerts
+(y sus variantes por ID, POST, PUT, DELETE)
+Relaciones (ejemplo)
+GET /api/guides/:id/specialties — Especialidades de un guía
+GET /api/guides/:id/languages — Idiomas de un guía
+GET /api/users/:id/bookings — Reservas de un usuario
+
+###########################################################
+
+Flujo de implementación:
+Modelos y Repositorios
+
+Crear modelos y esquemas para cada entidad (MongoDB para users, PostgreSQL para guides, bookings, zones, etc.).
+Implementar repositorios (Repository Pattern) para acceso a datos.
+Servicios y Controladores
+
+Crear servicios (Service Layer) para lógica de negocio.
+Implementar controladores para cada endpoint RESTful.
+Rutas y Middlewares
+
+Adaptar rutas para usar controladores persistentes.
+Proteger con JWT y validar datos.
+Relaciones y Consultas Avanzadas
+
+Implementar endpoints de relaciones (ej: /guides/:id/specialties).
+Consultas JOIN y agregaciones según el diagrama.
+Pruebas y Validación
+
+Probar todos los endpoints con datos reales.
+Ajustar validaciones, errores y respuestas.
+Documentación y Ajustes Finales
+
+Actualizar Swagger/OpenAPI.
+Dejar todo listo para integración frontend/mobile.

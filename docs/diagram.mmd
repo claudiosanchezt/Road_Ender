@@ -1,0 +1,43 @@
+flowchart LR
+  users["users"] --> bookings["bookings"]
+  bookings --> guides["guides"]
+  bookings --> reviews["reviews"]
+
+  zones["zones"] --> guide_zones["guide_zones"] --> guides
+  tourist_places["tourist_places"] --> guide_tourist["guide_tourist_places"] --> guides
+  specialties["specialties"] --> guide_specialties["guide_specialties"] --> guides
+  languages["languages"] --> guide_languages["guide_languages"] --> guides
+
+  guides --> emergency_contacts["emergency_contacts"]
+  users --> favorite_zones["favorite_zones"]
+  users --> favorite_tourist_places["favorite_tourist_places"]
+  users --> notifications["notifications"]
+  weather_alerts["weather_alerts"] --> zones
+
+  continents --> countries --> zones
+
+  subgraph CRUD Endpoints
+    users_api["/api/users"]
+    guides_api["/api/guides"]
+    bookings_api["/api/bookings"]
+    zones_api["/api/zones"]
+    tourist_places_api["/api/tourist-places"]
+    specialties_api["/api/specialties"]
+    languages_api["/api/languages"]
+    payments_api["/api/payments"]
+    favorites_api["/api/favorites"]
+    notifications_api["/api/notifications"]
+    weather_alerts_api["/api/weather-alerts"]
+  end
+
+  users_api --> users
+  guides_api --> guides
+  bookings_api --> bookings
+  zones_api --> zones
+  tourist_places_api --> tourist_places
+  specialties_api --> specialties
+  languages_api --> languages
+  payments_api --> payments
+  favorites_api --> favorite_zones
+  notifications_api --> notifications
+  weather_alerts_api --> weather_alerts
