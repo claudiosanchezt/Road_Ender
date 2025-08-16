@@ -1,0 +1,332 @@
+{
+  "migration": "add-chile-guides",
+  "date": "2025-07-25",
+  "description": "Agregar 3 guías especializados por cada zona de Chile",
+  "chilean_destinations": [
+    {
+      "name": "Patagonia Chilena",
+      "country": "Chile",
+      "guides": [
+        {
+          "id": 16,
+          "name": "Carlos Mendoza",
+          "location": "Torres del Paine, Chile",
+          "rating": 4.9,
+          "reviews": 167,
+          "specialties": ["Trekking", "Glaciares", "Fauna Patagónica"],
+          "description": "Guía de montaña certificado con 15 años explorando Torres del Paine y sus glaciares",
+          "badge": "🏔️ Patagonia Expert",
+          "zone": "Patagonia Chilena",
+          "languages": ["Español", "Inglés", "Alemán"],
+          "certifications": ["AAGM", "WFA", "Mountain Guide"],
+          "experience_years": 15,
+          "profile_tags": ["aventura", "naturaleza", "fotografia"],
+          "availability": {
+            "seasons": ["spring", "summer", "autumn"],
+            "group_size": { "min": 2, "max": 8 }
+          }
+        },
+        {
+          "id": 17,
+          "name": "María Elena Torres",
+          "location": "Puerto Natales, Chile",
+          "rating": 4.8,
+          "reviews": 145,
+          "specialties": ["Fotografía", "Condor", "Ice Trekking"],
+          "description": "Fotógrafa naturalista especializada en capturar la majestuosidad de la Patagonia",
+          "badge": "📸 Wild Photo",
+          "zone": "Patagonia Chilena",
+          "languages": ["Español", "Inglés", "Francés"],
+          "certifications": ["Professional Photographer", "Nature Guide"],
+          "experience_years": 12,
+          "profile_tags": ["fotografia", "vida silvestre", "paisajes"],
+          "availability": {
+            "seasons": ["all"],
+            "group_size": { "min": 1, "max": 6 }
+          }
+        },
+        {
+          "id": 18,
+          "name": "Rodrigo Bahamonde",
+          "location": "El Calafate - Torres del Paine, Chile",
+          "rating": 4.9,
+          "reviews": 203,
+          "specialties": ["Kayak", "Glaciares", "Navegación"],
+          "description": "Experto en navegación patagónica y kayak entre icebergs del Parque Nacional",
+          "badge": "🚣 Ice Navigator",
+          "zone": "Patagonia Chilena",
+          "languages": ["Español", "Inglés", "Portugués"],
+          "certifications": ["Kayak Instructor", "Maritime Navigation"],
+          "experience_years": 18,
+          "profile_tags": ["kayak", "navegacion", "glaciares"],
+          "availability": {
+            "seasons": ["spring", "summer"],
+            "group_size": { "min": 2, "max": 10 }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Desierto de Atacama",
+      "country": "Chile",
+      "guides": [
+        {
+          "id": 19,
+          "name": "Alejandra Vargas",
+          "location": "San Pedro de Atacama, Chile",
+          "rating": 4.9,
+          "reviews": 189,
+          "specialties": ["Astronomía", "Geysers", "Altiplano"],
+          "description": "Astrónoma profesional que revela los secretos del cielo más limpio del mundo",
+          "badge": "🌟 Star Master",
+          "zone": "Desierto de Atacama",
+          "languages": ["Español", "Inglés", "Italiano"],
+          "certifications": ["PhD Astronomy", "Desert Guide", "Observatory Guide"],
+          "experience_years": 14,
+          "profile_tags": ["astronomía", "cielo nocturno", "observatorios"],
+          "availability": {
+            "seasons": ["all"],
+            "group_size": { "min": 2, "max": 12 }
+          }
+        },
+        {
+          "id": 20,
+          "name": "José Atacameño",
+          "location": "San Pedro de Atacama, Chile",
+          "rating": 4.8,
+          "reviews": 156,
+          "specialties": ["Cultura Atacameña", "Lagunas", "Flamencos"],
+          "description": "Descendiente atacameño que comparte la sabiduría ancestral del desierto",
+          "badge": "🏜️ Desert Soul",
+          "zone": "Desierto de Atacama",
+          "languages": ["Español", "Kunza", "Inglés"],
+          "certifications": ["Cultural Heritage Guide", "Indigenous Communities"],
+          "experience_years": 25,
+          "profile_tags": ["cultura indígena", "tradiciones", "historia"],
+          "availability": {
+            "seasons": ["all"],
+            "group_size": { "min": 1, "max": 15 }
+          }
+        },
+        {
+          "id": 21,
+          "name": "Isabella Salinas",
+          "location": "Calama - Atacama, Chile",
+          "rating": 4.7,
+          "reviews": 134,
+          "specialties": ["Geología", "Volcanes", "Minerales"],
+          "description": "Geóloga especializada en formaciones volcánicas y minerales del Atacama",
+          "badge": "🌋 Geo Expert",
+          "zone": "Desierto de Atacama",
+          "languages": ["Español", "Inglés", "Alemán"],
+          "certifications": ["MSc Geology", "Volcanology Specialist"],
+          "experience_years": 10,
+          "profile_tags": ["geología", "volcanes", "ciencia"],
+          "availability": {
+            "seasons": ["all"],
+            "group_size": { "min": 2, "max": 8 }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Valparaíso y Viña del Mar",
+      "country": "Chile",
+      "guides": [
+        {
+          "id": 22,
+          "name": "Arturo Bohemio",
+          "location": "Valparaíso, Chile",
+          "rating": 4.8,
+          "reviews": 198,
+          "specialties": ["Arte Urbano", "Historia", "Cultura Porteña"],
+          "description": "Artista local que conoce cada mural y leyenda de los cerros de Valparaíso",
+          "badge": "🎨 Street Art",
+          "zone": "Valparaíso y Viña del Mar",
+          "languages": ["Español", "Inglés", "Francés"],
+          "certifications": ["Fine Arts", "Cultural Heritage Guide"],
+          "experience_years": 16,
+          "profile_tags": ["arte urbano", "murales", "bohemia"],
+          "availability": {
+            "seasons": ["all"],
+            "group_size": { "min": 1, "max": 12 }
+          }
+        },
+        {
+          "id": 23,
+          "name": "Carmen Oceana",
+          "location": "Viña del Mar, Chile",
+          "rating": 4.7,
+          "reviews": 167,
+          "specialties": ["Gastronomía", "Vinos", "Costa"],
+          "description": "Chef especializada en mariscos y vinos de la región de Valparaíso",
+          "badge": "🍷 Ocean Chef",
+          "zone": "Valparaíso y Viña del Mar",
+          "languages": ["Español", "Inglés", "Italiano"],
+          "certifications": ["Culinary Arts", "Sommelier", "Seafood Specialist"],
+          "experience_years": 13,
+          "profile_tags": ["gastronomía", "mariscos", "vinos"],
+          "availability": {
+            "seasons": ["all"],
+            "group_size": { "min": 2, "max": 10 }
+          }
+        },
+        {
+          "id": 24,
+          "name": "Pablo Marinero",
+          "location": "Valparaíso - Viña, Chile",
+          "rating": 4.6,
+          "reviews": 145,
+          "specialties": ["Historia Naval", "Patrimonio", "Arquitectura"],
+          "description": "Historiador naval que narra las aventuras marítimas del puerto principal",
+          "badge": "⚓ Sea Heritage",
+          "zone": "Valparaíso y Viña del Mar",
+          "languages": ["Español", "Inglés", "Portugués"],
+          "certifications": ["Naval History", "UNESCO Heritage Guide"],
+          "experience_years": 20,
+          "profile_tags": ["historia naval", "patrimonio", "puerto"],
+          "availability": {
+            "seasons": ["all"],
+            "group_size": { "min": 1, "max": 15 }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Valle del Elqui",
+      "country": "Chile",
+      "guides": [
+        {
+          "id": 25,
+          "name": "Soledad Cósmica",
+          "location": "Vicuña, Valle del Elqui, Chile",
+          "rating": 4.9,
+          "reviews": 178,
+          "specialties": ["Astronomía", "Observatorios", "Cielos"],
+          "description": "Astrónoma que combina ciencia con la magia espiritual del valle de Elqui",
+          "badge": "🔭 Cosmic Guide",
+          "zone": "Valle del Elqui",
+          "languages": ["Español", "Inglés", "Francés"],
+          "certifications": ["PhD Astronomy", "Observatory Guide", "Spiritual Tourism"],
+          "experience_years": 11,
+          "profile_tags": ["astronomía", "observatorios", "energía"],
+          "availability": {
+            "seasons": ["all"],
+            "group_size": { "min": 1, "max": 8 }
+          }
+        },
+        {
+          "id": 26,
+          "name": "Vicente Pisquero",
+          "location": "Pisco Elqui, Chile",
+          "rating": 4.8,
+          "reviews": 156,
+          "specialties": ["Pisco", "Viñedos", "Destilación"],
+          "description": "Maestro destilador que enseña los secretos del pisco y las tradiciones vitivinícolas",
+          "badge": "🥃 Pisco Master",
+          "zone": "Valle del Elqui",
+          "languages": ["Español", "Inglés", "Italiano"],
+          "certifications": ["Master Distiller", "Viticulture", "Pisco Sommelier"],
+          "experience_years": 22,
+          "profile_tags": ["pisco", "destilación", "tradición"],
+          "availability": {
+            "seasons": ["all"],
+            "group_size": { "min": 2, "max": 12 }
+          }
+        },
+        {
+          "id": 27,
+          "name": "Gabriela Mistral Jr.",
+          "location": "Montegrande, Valle del Elqui, Chile",
+          "rating": 4.7,
+          "reviews": 134,
+          "specialties": ["Literatura", "Poesía", "Cultura"],
+          "description": "Guía cultural que sigue los pasos de Gabriela Mistral por su valle natal",
+          "badge": "📖 Poetry Soul",
+          "zone": "Valle del Elqui",
+          "languages": ["Español", "Inglés", "Francés"],
+          "certifications": ["Literature Guide", "Cultural Heritage", "Poetry Workshop"],
+          "experience_years": 8,
+          "profile_tags": ["literatura", "poesía", "mistral"],
+          "availability": {
+            "seasons": ["all"],
+            "group_size": { "min": 1, "max": 10 }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Isla de Chiloé",
+      "country": "Chile",
+      "guides": [
+        {
+          "id": 28,
+          "name": "Domingo Chilote",
+          "location": "Castro, Chiloé, Chile",
+          "rating": 4.8,
+          "reviews": 189,
+          "specialties": ["Mitología", "Palafitos", "Tradiciones"],
+          "description": "Narrador de leyendas chilotas que mantiene viva la tradición oral de la isla",
+          "badge": "🏘️ Mythic Teller",
+          "zone": "Isla de Chiloé",
+          "languages": ["Español", "Inglés", "Mapudungun"],
+          "certifications": ["Cultural Heritage Guide", "Oral Tradition Keeper"],
+          "experience_years": 30,
+          "profile_tags": ["mitología", "tradición oral", "leyendas"],
+          "availability": {
+            "seasons": ["all"],
+            "group_size": { "min": 1, "max": 15 }
+          }
+        },
+        {
+          "id": 29,
+          "name": "Rosario Marisquera",
+          "location": "Ancud, Chiloé, Chile",
+          "rating": 4.7,
+          "reviews": 167,
+          "specialties": ["Mariscos", "Gastronomía", "Pesca"],
+          "description": "Experta en mariscos y técnicas ancestrales de pesca de los chilotes",
+          "badge": "🦐 Sea Harvest",
+          "zone": "Isla de Chiloé",
+          "languages": ["Español", "Inglés"],
+          "certifications": ["Seafood Expert", "Traditional Fishing", "Culinary Arts"],
+          "experience_years": 17,
+          "profile_tags": ["mariscos", "pesca tradicional", "gastronomía"],
+          "availability": {
+            "seasons": ["all"],
+            "group_size": { "min": 2, "max": 10 }
+          }
+        },
+        {
+          "id": 30,
+          "name": "Mateo Carpintero",
+          "location": "Dalcahue, Chiloé, Chile",
+          "rating": 4.6,
+          "reviews": 145,
+          "specialties": ["Iglesias", "Arquitectura", "Madera"],
+          "description": "Maestro carpintero especializado en la arquitectura única de las iglesias chilotas",
+          "badge": "⛪ Wood Master",
+          "zone": "Isla de Chiloé",
+          "languages": ["Español", "Inglés"],
+          "certifications": ["Master Carpenter", "Heritage Architecture", "UNESCO Guide"],
+          "experience_years": 25,
+          "profile_tags": ["arquitectura", "iglesias", "madera"],
+          "availability": {
+            "seasons": ["all"],
+            "group_size": { "min": 1, "max": 8 }
+          }
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "total_guides_added": 15,
+    "zones_covered": 5,
+    "average_rating": 4.75,
+    "languages_supported": ["Español", "Inglés", "Francés", "Alemán", "Italiano", "Portugués", "Kunza", "Mapudungun"],
+    "specialties_covered": [
+      "Trekking", "Glaciares", "Astronomía", "Arte Urbano", "Gastronomía", 
+      "Mitología", "Arquitectura", "Cultura Indígena", "Fotografía", "Pisco"
+    ]
+  }
+}

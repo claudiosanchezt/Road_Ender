@@ -1,0 +1,46 @@
+<!-- Imagen por defecto para sitios turísticos -->
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E0F6FF;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="mountainGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B7355;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#A0522D;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6B4423;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Cielo -->
+  <rect width="400" height="200" fill="url(#skyGradient)"/>
+  
+  <!-- Montañas de fondo -->
+  <polygon points="0,150 100,80 200,120 300,60 400,100 400,200 0,200" fill="#5D4E37" opacity="0.7"/>
+  
+  <!-- Montañas principales -->
+  <polygon points="50,200 150,100 250,140 350,90 400,120 400,200" fill="url(#mountainGradient)"/>
+  
+  <!-- Sol -->
+  <circle cx="320" cy="80" r="25" fill="#FFD700" opacity="0.8"/>
+  
+  <!-- Nube -->
+  <ellipse cx="100" cy="70" rx="20" ry="10" fill="white" opacity="0.8"/>
+  <ellipse cx="115" cy="65" rx="25" ry="12" fill="white" opacity="0.8"/>
+  <ellipse cx="130" cy="70" rx="20" ry="10" fill="white" opacity="0.8"/>
+  
+  <!-- Texto -->
+  <text x="200" y="180" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#FFFFFF" opacity="0.9">
+    Sitio Turístico
+  </text>
+  <text x="200" y="200" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#FFFFFF" opacity="0.7">
+    Imagen no disponible
+  </text>
+  
+  <!-- Icono de cámara -->
+  <g transform="translate(180, 240)">
+    <rect x="5" y="10" width="30" height="20" rx="3" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.5"/>
+    <circle cx="20" cy="20" r="6" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.5"/>
+    <rect x="12" y="5" width="6" height="4" rx="1" fill="#FFFFFF" opacity="0.5"/>
+  </g>
+</svg>

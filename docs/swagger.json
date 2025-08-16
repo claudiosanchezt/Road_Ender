@@ -1,0 +1,9 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Tourist Guides API",
+    "version": "1.0.0",
+    "description": "API RESTful para gestión de usuarios, guías, reservas, zonas, lugares turísticos, especialidades, idiomas, pagos, favoritos, notificaciones y alertas."
+  },
+  "paths": {}
+}

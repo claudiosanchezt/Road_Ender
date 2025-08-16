@@ -1,0 +1,98 @@
+/* Estilos modernos para el sistema de estrellas */
+.star-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.stars-container {
+  display: flex;
+  gap: 2px;
+}
+
+.star {
+  transition: all 0.2s ease;
+  position: relative;
+  display: inline-block;
+}
+
+/* Tamaños */
+.star-rating-small .star {
+  font-size: 14px;
+}
+
+.star-rating-medium .star {
+  font-size: 18px;
+}
+
+.star-rating-large .star {
+  font-size: 24px;
+}
+
+/* Estados de las estrellas */
+.star.filled {
+  color: #ffc107;
+  text-shadow: 0 0 4px rgba(255, 193, 7, 0.3);
+  transform: scale(1);
+}
+
+.star.half-filled {
+  color: #ffc107;
+  text-shadow: 0 0 4px rgba(255, 193, 7, 0.3);
+}
+
+.star:not(.filled):not(.half-filled) {
+  color: #e9ecef;
+  opacity: 0.6;
+}
+
+/* Estrellas interactivas */
+.star.interactive:hover {
+  transform: scale(1.15);
+  text-shadow: 0 0 8px rgba(255, 193, 7, 0.5);
+}
+
+.star.interactive {
+  cursor: pointer;
+}
+
+/* Animación de hover para estrellas interactivas */
+.star-rating:hover .star.interactive.filled {
+  animation: starGlow 0.3s ease;
+}
+
+@keyframes starGlow {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Valor del rating */
+.rating-value {
+  margin-left: 8px;
+  font-weight: 500;
+  color: #495057;
+  font-size: 0.9em;
+}
+
+/* Efectos adicionales para modo oscuro */
+@media (prefers-color-scheme: dark) {
+  .star:not(.filled):not(.half-filled) {
+    color: #6c757d;
+  }
+  
+  .rating-value {
+    color: #adb5bd;
+  }
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .star-rating-large .star {
+    font-size: 20px;
+  }
+  
+  .star-rating-medium .star {
+    font-size: 16px;
+  }
+}

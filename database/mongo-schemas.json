@@ -1,0 +1,61 @@
+{
+  "guides": {
+    "type": "object",
+    "properties": {
+      "_id": { "type": "string" },
+      "guideId": { "type": "string" },
+      "fullName": { "type": "string" },
+      "specialties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string" },
+            "name": { "type": "string" },
+            "category": { "type": "string" },
+            "proficiencyLevel": { "type": "integer" },
+            "yearsExperience": { "type": "integer" },
+            "certifications": { "type": "array", "items": { "type": "string" } }
+          },
+          "required": ["id","name"]
+        }
+      },
+      "workingZones": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "zoneId": { "type": "string" },
+            "zoneName": { "type": "string" },
+            "knowledgeLevel": { "type": "integer" },
+            "complexityIndex": { "type": "integer" },
+            "coordinates": { "type": "object", "properties": { "lat": { "type": "number" }, "lng": { "type": "number" } } }
+          }
+        }
+      },
+      "languages": { "type": "array" },
+      "score": { "type": "object" },
+      "statistics": { "type": "object" },
+      "pricing": { "type": "object" },
+      "availability": { "type": "object" },
+      "reviews": { "type": "array" },
+      "profileData": { "type": "object" },
+      "createdAt": { "type": "string", "format": "date-time" },
+      "updatedAt": { "type": "string", "format": "date-time" }
+    },
+    "required": ["guideId","fullName"]
+  },
+  "user_favorites": {
+    "type": "object",
+    "properties": {
+      "_id": { "type": "string" },
+      "userId": { "type": "string" },
+      "favoriteGuides": { "type": "array" },
+      "favoriteZones": { "type": "array" },
+      "preferences": { "type": "object" },
+      "searchHistory": { "type": "array" },
+      "updatedAt": { "type": "string", "format": "date-time" }
+    },
+    "required": ["userId"]
+  }
+}

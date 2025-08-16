@@ -1,0 +1,1069 @@
+{
+  "users": [
+    {
+      "id": "user-1",
+      "email": "guide1@example.com",
+      "firstName": "Carlos",
+      "lastName": "Rodriguez",
+      "userType": "guide",
+      "isActive": true,
+      "createdAt": "2025-07-21T23:09:28.632Z"
+    },
+    {
+      "id": "user-2",
+      "email": "client1@example.com",
+      "firstName": "Ana",
+      "lastName": "Martinez",
+      "userType": "client",
+      "isActive": true,
+      "createdAt": "2025-07-21T23:09:28.633Z"
+    },
+    {
+      "id": "user-3",
+      "email": "guide2@example.com",
+      "firstName": "María",
+      "lastName": "Silva",
+      "userType": "guide",
+      "isActive": true,
+      "createdAt": "2025-07-21T23:09:28.634Z"
+    },
+    {
+      "id": "user-4",
+      "email": "guide3@example.com",
+      "firstName": "Diego",
+      "lastName": "Torres",
+      "userType": "guide",
+      "isActive": true,
+      "createdAt": "2025-07-21T23:09:28.635Z"
+    },
+    {
+      "id": "user-5",
+      "email": "guide4@example.com",
+      "firstName": "Carmen",
+      "lastName": "Morales",
+      "userType": "guide",
+      "isActive": true,
+      "createdAt": "2025-07-21T23:09:28.636Z"
+    },
+    {
+      "id": "user-6",
+      "email": "guide5@example.com",
+      "firstName": "Roberto",
+      "lastName": "Mendez",
+      "userType": "guide",
+      "isActive": true,
+      "createdAt": "2025-07-21T23:09:28.637Z"
+    }
+  ],
+  "guides": [
+    {
+      "id": "guide-1",
+      "userId": "user-1",
+      "fullName": "Carlos Rodriguez",
+      "specialties": [
+        {
+          "name": "montañismo",
+          "level": "advanced",
+          "description": "Especialista en montañismo"
+        },
+        {
+          "name": "ecoturismo",
+          "level": "advanced",
+          "description": "Especialista en ecoturismo"
+        },
+        {
+          "name": "aventura",
+          "level": "advanced",
+          "description": "Especialista en aventura"
+        }
+      ],
+      "workingZones": [
+        {
+          "zoneName": "Cordillera de los Andes",
+          "zoneId": "zone-1",
+          "coordinates": {
+            "lat": -33.4489,
+            "lng": -70.6693
+          },
+          "complexityIndex": 8
+        }
+      ],
+      "languages": [
+        {
+          "language": "Español",
+          "proficiency": "native"
+        },
+        {
+          "language": "Inglés",
+          "proficiency": "advanced"
+        }
+      ],
+      "certifications": [
+        "Guía de Montaña Certificado",
+        "Primeros Auxilios"
+      ],
+      "experienceYears": 8,
+      "averageRating": 4.5,
+      "totalTours": 156,
+      "completedTours": 0,
+      "cancelledTours": 0,
+      "tariff": {
+        "baseRate": 25,
+        "experienceBonus": 5,
+        "ratingBonus": 3,
+        "specialtyBonus": 2,
+        "certificationBonus": 0,
+        "languageBonus": 0,
+        "totalRate": 35,
+        "currency": "USD",
+        "lastUpdated": "2025-07-25T01:07:06.514Z"
+      },
+      "score": {
+        "total": 40.537499999999994,
+        "breakdown": {
+          "ratings": 100,
+          "responseRate": 95,
+          "experience": 85,
+          "punctuality": 90
+        }
+      },
+      "statistics": {
+        "totalTours": 156,
+        "completedTours": 149,
+        "cancelledTours": 7,
+        "averageResponseTime": 45,
+        "lastActiveDate": "2025-07-21T23:09:28.633Z"
+      },
+      "reviews": [
+        {
+          "reviewId": "review-1",
+          "clientId": "user-2",
+          "rating": 5,
+          "comment": "Excelente guía, muy conocedor del terreno",
+          "tourDate": "2024-12-15",
+          "createdAt": "2025-07-21T23:09:28.633Z"
+        },
+        {
+          "reviewId": "review-1753225821927",
+          "clientId": "client-1753225821927",
+          "clientName": "Claudio Sanchez",
+          "rating": 5,
+          "comment": "prueba de comentario para el guia es bueno y simpatico el amigo",
+          "tourDate": "2025-07-22T23:10:21.927Z",
+          "createdAt": "2025-07-22T23:10:21.927Z"
+        },
+        {
+          "reviewId": "review-1753228336341",
+          "clientId": "client-1753228336341",
+          "clientName": "Claudio Sanchez",
+          "rating": 5,
+          "comment": "otras mas",
+          "tourDate": "2025-07-22T23:52:16.341Z",
+          "createdAt": "2025-07-22T23:52:16.341Z"
+        }
+      ],
+      "availability": {
+        "isAvailable": true,
+        "workingHours": {
+          "start": "08:00",
+          "end": "18:00"
+        }
+      },
+      "createdAt": "2025-07-21T23:09:28.633Z",
+      "updatedAt": "2025-07-25T01:07:06.515Z"
+    },
+    {
+      "id": "guide-2",
+      "userId": "user-3",
+      "fullName": "María Silva",
+      "specialties": [
+        {
+          "name": "astroturismo",
+          "level": "advanced",
+          "description": "Especialista en astroturismo"
+        },
+        {
+          "name": "fotografía",
+          "level": "advanced",
+          "description": "Especialista en fotografía"
+        },
+        {
+          "name": "desierto",
+          "level": "advanced",
+          "description": "Especialista en desierto"
+        }
+      ],
+      "workingZones": [
+        {
+          "zoneName": "Atacama Norte",
+          "zoneId": "zone-2",
+          "coordinates": {
+            "lat": -24.5,
+            "lng": -68.2
+          },
+          "complexityIndex": 9
+        }
+      ],
+      "languages": [
+        {
+          "language": "Español",
+          "proficiency": "native"
+        },
+        {
+          "language": "Inglés",
+          "proficiency": "advanced"
+        },
+        {
+          "language": "Francés",
+          "proficiency": "advanced"
+        }
+      ],
+      "certifications": [
+        "Guía de Astroturismo Certificado",
+        "Fotografía Profesional"
+      ],
+      "experienceYears": 12,
+      "averageRating": 4.8,
+      "totalTours": 203,
+      "completedTours": 0,
+      "cancelledTours": 0,
+      "tariff": {
+        "baseRate": 25,
+        "experienceBonus": 8,
+        "ratingBonus": 5,
+        "specialtyBonus": 5,
+        "certificationBonus": 2,
+        "languageBonus": 0,
+        "totalRate": 45,
+        "currency": "USD",
+        "lastUpdated": "2025-07-25T01:07:06.516Z"
+      },
+      "score": {
+        "total": 32.57599999999999,
+        "breakdown": {
+          "ratings": 80,
+          "responseRate": 98,
+          "experience": 95,
+          "punctuality": 95
+        }
+      },
+      "statistics": {
+        "totalTours": 89,
+        "completedTours": 87,
+        "cancelledTours": 2,
+        "averageResponseTime": 30,
+        "lastActiveDate": "2025-07-21T23:09:28.634Z"
+      },
+      "reviews": [
+        {
+          "reviewId": "review-2",
+          "clientId": "user-2",
+          "rating": 5,
+          "comment": "Tours nocturnos increíbles, conoce muy bien las estrellas",
+          "tourDate": "2024-11-20",
+          "createdAt": "2025-07-21T23:09:28.634Z"
+        },
+        {
+          "reviewId": "review-1753228276369",
+          "clientId": "client-1753228276369",
+          "clientName": "Claudio Sanchez",
+          "rating": 3,
+          "comment": "otra mas para validar",
+          "tourDate": "2025-07-22T23:51:16.369Z",
+          "createdAt": "2025-07-22T23:51:16.369Z"
+        }
+      ],
+      "availability": {
+        "isAvailable": true,
+        "workingHours": {
+          "start": "08:00",
+          "end": "18:00"
+        }
+      },
+      "createdAt": "2025-07-21T23:09:28.634Z",
+      "updatedAt": "2025-07-25T01:07:06.516Z"
+    },
+    {
+      "id": "guide-3",
+      "userId": "user-4",
+      "fullName": "Diego Torres",
+      "specialties": [
+        {
+          "name": "historia",
+          "level": "advanced",
+          "description": "Especialista en historia"
+        },
+        {
+          "name": "cultura",
+          "level": "advanced",
+          "description": "Especialista en cultura"
+        },
+        {
+          "name": "patrimonio",
+          "level": "advanced",
+          "description": "Especialista en patrimonio"
+        }
+      ],
+      "workingZones": [
+        {
+          "zoneName": "Costa Central",
+          "zoneId": "zone-3",
+          "coordinates": {
+            "lat": -33.0458,
+            "lng": -71.6197
+          },
+          "complexityIndex": 4
+        }
+      ],
+      "languages": [
+        {
+          "language": "Español",
+          "proficiency": "native"
+        },
+        {
+          "language": "Inglés",
+          "proficiency": "advanced"
+        },
+        {
+          "language": "Portugués",
+          "proficiency": "advanced"
+        }
+      ],
+      "certifications": [
+        "Guía Histórico Certificado",
+        "Patrimonio Cultural"
+      ],
+      "experienceYears": 6,
+      "averageRating": 4.6,
+      "totalTours": 203,
+      "completedTours": 0,
+      "cancelledTours": 0,
+      "tariff": {
+        "baseRate": 25,
+        "experienceBonus": 3,
+        "ratingBonus": 2,
+        "specialtyBonus": 0,
+        "certificationBonus": 0,
+        "languageBonus": 0,
+        "totalRate": 30,
+        "currency": "USD",
+        "lastUpdated": "2025-07-25T01:07:06.517Z"
+      },
+      "score": {
+        "total": 4.6,
+        "breakdown": {
+          "ratings": 4.7,
+          "responseRate": 92,
+          "experience": 88,
+          "punctuality": 85
+        }
+      },
+      "statistics": {
+        "totalTours": 203,
+        "completedTours": 195,
+        "cancelledTours": 8,
+        "averageResponseTime": 60,
+        "lastActiveDate": "2025-07-21T23:09:28.635Z"
+      },
+      "reviews": [
+        {
+          "reviewId": "review-3",
+          "clientId": "user-2",
+          "rating": 5,
+          "comment": "Excelente conocimiento histórico de Valparaíso",
+          "tourDate": "2024-10-10",
+          "createdAt": "2025-07-21T23:09:28.635Z"
+        }
+      ],
+      "availability": {
+        "isAvailable": true,
+        "workingHours": {
+          "start": "08:00",
+          "end": "18:00"
+        }
+      },
+      "createdAt": "2025-07-21T23:09:28.635Z",
+      "updatedAt": "2025-07-25T01:07:06.517Z"
+    },
+    {
+      "id": "guide-4",
+      "userId": "user-5",
+      "fullName": "Carmen Morales",
+      "specialties": [
+        {
+          "name": "glaciares",
+          "level": "advanced",
+          "description": "Especialista en glaciares"
+        },
+        {
+          "name": "patagonia",
+          "level": "advanced",
+          "description": "Especialista en patagonia"
+        },
+        {
+          "name": "trekking",
+          "level": "advanced",
+          "description": "Especialista en trekking"
+        }
+      ],
+      "workingZones": [
+        {
+          "zoneName": "Patagonia Sur",
+          "zoneId": "zone-4",
+          "coordinates": {
+            "lat": -50.3374,
+            "lng": -72.2654
+          },
+          "complexityIndex": 10
+        }
+      ],
+      "languages": [
+        {
+          "language": "Español",
+          "proficiency": "native"
+        },
+        {
+          "language": "Inglés",
+          "proficiency": "advanced"
+        },
+        {
+          "language": "Alemán",
+          "proficiency": "advanced"
+        }
+      ],
+      "certifications": [
+        "Ecoturismo Profesional",
+        "Conservación Ambiental"
+      ],
+      "experienceYears": 15,
+      "averageRating": 4.9,
+      "totalTours": 67,
+      "completedTours": 0,
+      "cancelledTours": 0,
+      "tariff": {
+        "baseRate": 25,
+        "experienceBonus": 10,
+        "ratingBonus": 6,
+        "specialtyBonus": 7,
+        "certificationBonus": 2,
+        "languageBonus": 0,
+        "totalRate": 50,
+        "currency": "USD",
+        "lastUpdated": "2025-07-25T01:07:06.517Z"
+      },
+      "score": {
+        "total": 4.9,
+        "breakdown": {
+          "ratings": 4.9,
+          "responseRate": 96,
+          "experience": 98,
+          "punctuality": 92
+        }
+      },
+      "statistics": {
+        "totalTours": 67,
+        "completedTours": 65,
+        "cancelledTours": 2,
+        "averageResponseTime": 40,
+        "lastActiveDate": "2025-07-21T23:09:28.636Z"
+      },
+      "reviews": [
+        {
+          "reviewId": "review-4",
+          "clientId": "user-2",
+          "rating": 5,
+          "comment": "Increíble experiencia en Torres del Paine",
+          "tourDate": "2024-09-15",
+          "createdAt": "2025-07-21T23:09:28.636Z"
+        }
+      ],
+      "availability": {
+        "isAvailable": true,
+        "workingHours": {
+          "start": "08:00",
+          "end": "18:00"
+        }
+      },
+      "createdAt": "2025-07-21T23:09:28.636Z",
+      "updatedAt": "2025-07-25T01:07:06.517Z"
+    },
+    {
+      "id": "guide-5",
+      "userId": "user-6",
+      "fullName": "Roberto Mendez",
+      "specialties": [
+        {
+          "name": "vinos",
+          "level": "advanced",
+          "description": "Especialista en vinos"
+        },
+        {
+          "name": "gastronomía",
+          "level": "advanced",
+          "description": "Especialista en gastronomía"
+        },
+        {
+          "name": "valles",
+          "level": "advanced",
+          "description": "Especialista en valles"
+        }
+      ],
+      "workingZones": [
+        {
+          "zoneName": "Valle Central",
+          "zoneId": "zone-5",
+          "coordinates": {
+            "lat": -34.1758,
+            "lng": -70.7394
+          },
+          "complexityIndex": 3
+        }
+      ],
+      "languages": [
+        {
+          "language": "Español",
+          "proficiency": "native"
+        },
+        {
+          "language": "Inglés",
+          "proficiency": "advanced"
+        },
+        {
+          "language": "Italiano",
+          "proficiency": "advanced"
+        }
+      ],
+      "certifications": [
+        "Sommelier Certificado",
+        "Guía Gastronómico"
+      ],
+      "experienceYears": 10,
+      "averageRating": 4.4,
+      "totalTours": 134,
+      "completedTours": 0,
+      "cancelledTours": 0,
+      "tariff": {
+        "baseRate": 25,
+        "experienceBonus": 6,
+        "ratingBonus": 3,
+        "specialtyBonus": 4,
+        "certificationBonus": 2,
+        "languageBonus": 0,
+        "totalRate": 40,
+        "currency": "USD",
+        "lastUpdated": "2025-07-25T01:07:06.518Z"
+      },
+      "score": {
+        "total": 4.4,
+        "breakdown": {
+          "ratings": 4.5,
+          "responseRate": 88,
+          "experience": 82,
+          "punctuality": 90
+        }
+      },
+      "statistics": {
+        "totalTours": 134,
+        "completedTours": 128,
+        "cancelledTours": 6,
+        "averageResponseTime": 50,
+        "lastActiveDate": "2025-07-21T23:09:28.637Z"
+      },
+      "reviews": [
+        {
+          "reviewId": "review-5",
+          "clientId": "user-2",
+          "rating": 4,
+          "comment": "Muy buen conocimiento de vinos y gastronomía local",
+          "tourDate": "2024-08-20",
+          "createdAt": "2025-07-21T23:09:28.637Z"
+        }
+      ],
+      "availability": {
+        "isAvailable": true,
+        "workingHours": {
+          "start": "08:00",
+          "end": "18:00"
+        }
+      },
+      "createdAt": "2025-07-21T23:09:28.637Z",
+      "updatedAt": "2025-07-25T01:07:06.518Z"
+    }
+  ],
+  "zones": [
+    {
+      "id": "zone-1",
+      "zoneName": "Cordillera de los Andes",
+      "coordinates": {
+        "center": {
+          "lat": -33.4489,
+          "lng": -70.6693
+        },
+        "bounds": {
+          "northeast": {
+            "lat": -33,
+            "lng": -70
+          },
+          "southwest": {
+            "lat": -34,
+            "lng": -71
+          }
+        }
+      },
+      "complexityIndex": {
+        "terrain": 8,
+        "accessibility": 6,
+        "weather": 7,
+        "altitude": 3500,
+        "overall": 7.5
+      },
+      "climateData": {
+        "currentWeather": {
+          "temperature": 18,
+          "humidity": 65,
+          "pressure": 1013,
+          "windSpeed": 15,
+          "conditions": "Parcialmente nublado",
+          "visibility": 10,
+          "uvIndex": 6
+        }
+      }
+    },
+    {
+      "id": "zone-2",
+      "zoneName": "Atacama Norte",
+      "coordinates": {
+        "center": {
+          "lat": -24.5,
+          "lng": -68.2
+        },
+        "bounds": {
+          "northeast": {
+            "lat": -22,
+            "lng": -67
+          },
+          "southwest": {
+            "lat": -27,
+            "lng": -70
+          }
+        }
+      },
+      "complexityIndex": {
+        "terrain": 9,
+        "accessibility": 5,
+        "weather": 8,
+        "altitude": 4200,
+        "overall": 8
+      },
+      "climateData": {
+        "currentWeather": {
+          "temperature": 25,
+          "humidity": 15,
+          "pressure": 850,
+          "windSpeed": 8,
+          "conditions": "Despejado",
+          "visibility": 15,
+          "uvIndex": 10
+        }
+      }
+    },
+    {
+      "id": "zone-3",
+      "zoneName": "Costa Central",
+      "coordinates": {
+        "center": {
+          "lat": -33.0458,
+          "lng": -71.6197
+        },
+        "bounds": {
+          "northeast": {
+            "lat": -32,
+            "lng": -71
+          },
+          "southwest": {
+            "lat": -34,
+            "lng": -72
+          }
+        }
+      },
+      "complexityIndex": {
+        "terrain": 4,
+        "accessibility": 8,
+        "weather": 5,
+        "altitude": 150,
+        "overall": 4.5
+      },
+      "climateData": {
+        "currentWeather": {
+          "temperature": 20,
+          "humidity": 75,
+          "pressure": 1015,
+          "windSpeed": 12,
+          "conditions": "Brisa marina",
+          "visibility": 12,
+          "uvIndex": 7
+        }
+      }
+    },
+    {
+      "id": "zone-4",
+      "zoneName": "Patagonia Sur",
+      "coordinates": {
+        "center": {
+          "lat": -50.3374,
+          "lng": -72.2654
+        },
+        "bounds": {
+          "northeast": {
+            "lat": -49,
+            "lng": -71
+          },
+          "southwest": {
+            "lat": -52,
+            "lng": -75
+          }
+        }
+      },
+      "complexityIndex": {
+        "terrain": 10,
+        "accessibility": 3,
+        "weather": 9,
+        "altitude": 800,
+        "overall": 9
+      },
+      "climateData": {
+        "currentWeather": {
+          "temperature": 8,
+          "humidity": 85,
+          "pressure": 980,
+          "windSpeed": 25,
+          "conditions": "Vientos fuertes",
+          "visibility": 8,
+          "uvIndex": 3
+        }
+      }
+    },
+    {
+      "id": "zone-5",
+      "zoneName": "Valle Central",
+      "coordinates": {
+        "center": {
+          "lat": -34.1758,
+          "lng": -70.7394
+        },
+        "bounds": {
+          "northeast": {
+            "lat": -33,
+            "lng": -70
+          },
+          "southwest": {
+            "lat": -35,
+            "lng": -72
+          }
+        }
+      },
+      "complexityIndex": {
+        "terrain": 3,
+        "accessibility": 9,
+        "weather": 4,
+        "altitude": 500,
+        "overall": 3.5
+      },
+      "climateData": {
+        "currentWeather": {
+          "temperature": 22,
+          "humidity": 60,
+          "pressure": 1010,
+          "windSpeed": 10,
+          "conditions": "Soleado",
+          "visibility": 12,
+          "uvIndex": 8
+        }
+      }
+    }
+  ],
+  "bookings": [
+    {
+      "id": "booking-1",
+      "userId": "user-2",
+      "guideId": "guide-1",
+      "guideName": "Carlos Rodriguez",
+      "clientName": "Ana Martinez",
+      "tourType": "Trekking en Cordillera",
+      "zone": "Cordillera de los Andes",
+      "specialty": "montañismo",
+      "status": "confirmed",
+      "bookingDate": "2025-07-21T23:09:28.633Z",
+      "tourDate": "2025-08-15T09:00:00.000Z",
+      "endDate": "2025-08-15T17:00:00.000Z",
+      "duration": 8,
+      "groupSize": 4,
+      "pricePerPerson": 70000,
+      "totalPrice": 280000,
+      "currency": "CLP",
+      "meetingPoint": "Base de la Cordillera, Sector Las Condes",
+      "coordinates": {
+        "lat": -33.4489,
+        "lng": -70.6693
+      },
+      "description": "Trekking de día completo por senderos de montaña con vistas panorámicas",
+      "requirements": [
+        "Experiencia básica en trekking",
+        "Equipo de montaña personal",
+        "Seguro de accidentes"
+      ],
+      "included": [
+        "Guía profesional",
+        "Equipo de seguridad",
+        "Refrigerio"
+      ],
+      "paymentStatus": "paid",
+      "paymentMethod": "transfer",
+      "weatherConditions": "Despejado, 18°C",
+      "createdAt": "2025-07-21T23:09:28.633Z",
+      "updatedAt": "2025-07-21T23:09:28.633Z"
+    },
+    {
+      "id": "booking-2",
+      "userId": "user-2",
+      "guideId": "guide-2",
+      "guideName": "María Silva",
+      "clientName": "Ana Martinez",
+      "tourType": "Astroturismo Nocturno",
+      "zone": "Atacama Norte",
+      "specialty": "astroturismo",
+      "status": "pending",
+      "bookingDate": "2025-07-20T15:30:00.000Z",
+      "tourDate": "2025-08-25T20:00:00.000Z",
+      "endDate": "2025-08-26T02:00:00.000Z",
+      "duration": 6,
+      "groupSize": 2,
+      "pricePerPerson": 90000,
+      "totalPrice": 180000,
+      "currency": "CLP",
+      "meetingPoint": "Observatorio San Pedro de Atacama",
+      "coordinates": {
+        "lat": -24.5,
+        "lng": -68.2
+      },
+      "description": "Tour nocturno de observación astronómica en el desierto más seco del mundo",
+      "requirements": [
+        "Ropa abrigada para la noche",
+        "Linterna con luz roja"
+      ],
+      "included": [
+        "Telescopios profesionales",
+        "Guía astronómico",
+        "Bebidas calientes",
+        "Transporte desde hotel"
+      ],
+      "paymentStatus": "pending",
+      "paymentMethod": "pending",
+      "weatherConditions": "Cielo despejado, ideal para observación",
+      "createdAt": "2025-07-20T15:30:00.000Z",
+      "updatedAt": "2025-07-20T15:30:00.000Z"
+    },
+    {
+      "id": "booking-3",
+      "userId": "user-2",
+      "guideId": "guide-3",
+      "guideName": "Diego Torres",
+      "clientName": "Ana Martinez",
+      "tourType": "Tour Histórico Valparaíso",
+      "zone": "Costa Central",
+      "specialty": "historia",
+      "status": "completed",
+      "bookingDate": "2025-06-10T10:15:00.000Z",
+      "tourDate": "2025-07-10T10:00:00.000Z",
+      "endDate": "2025-07-10T16:00:00.000Z",
+      "duration": 6,
+      "groupSize": 6,
+      "pricePerPerson": 45000,
+      "totalPrice": 270000,
+      "currency": "CLP",
+      "meetingPoint": "Plaza Sotomayor, Valparaíso",
+      "coordinates": {
+        "lat": -33.0458,
+        "lng": -71.6197
+      },
+      "description": "Recorrido histórico por el patrimonio arquitectónico y cultural de Valparaíso",
+      "requirements": [
+        "Calzado cómodo para caminar",
+        "Protector solar"
+      ],
+      "included": [
+        "Guía patrimonial certificado",
+        "Entradas a museos",
+        "Almuerzo típico"
+      ],
+      "paymentStatus": "paid",
+      "paymentMethod": "credit_card",
+      "weatherConditions": "Parcialmente nublado, 20°C",
+      "rating": 5,
+      "review": "Excelente conocimiento histórico, muy recomendado",
+      "createdAt": "2025-06-10T10:15:00.000Z",
+      "updatedAt": "2025-07-10T18:00:00.000Z"
+    },
+    {
+      "id": "booking-4",
+      "userId": "user-2",
+      "guideId": "guide-4",
+      "guideName": "Carmen Morales",
+      "clientName": "Ana Martinez",
+      "tourType": "Expedición Patagonia",
+      "zone": "Patagonia Sur",
+      "specialty": "glaciares",
+      "status": "cancelled",
+      "bookingDate": "2025-07-05T14:20:00.000Z",
+      "tourDate": "2025-09-20T08:00:00.000Z",
+      "endDate": "2025-09-22T18:00:00.000Z",
+      "duration": 54,
+      "groupSize": 3,
+      "pricePerPerson": 150000,
+      "totalPrice": 450000,
+      "currency": "CLP",
+      "meetingPoint": "Puerto Natales Terminal de Buses",
+      "coordinates": {
+        "lat": -50.3374,
+        "lng": -72.2654
+      },
+      "description": "Expedición de 3 días por Torres del Paine con visita a glaciares",
+      "requirements": [
+        "Experiencia en trekking avanzado",
+        "Equipo de camping completo",
+        "Seguro de montaña obligatorio"
+      ],
+      "included": [
+        "Guía especializado en glaciares",
+        "Permisos del parque",
+        "Comidas durante la expedición",
+        "Equipo de seguridad"
+      ],
+      "paymentStatus": "refunded",
+      "paymentMethod": "transfer",
+      "weatherConditions": "Condiciones climáticas adversas previstas",
+      "cancellationReason": "Condiciones meteorológicas peligrosas",
+      "cancellationDate": "2025-09-15T12:00:00.000Z",
+      "refundAmount": 450000,
+      "createdAt": "2025-07-05T14:20:00.000Z",
+      "updatedAt": "2025-09-15T12:00:00.000Z"
+    },
+    {
+      "id": "booking-5",
+      "userId": "user-2",
+      "guideId": "guide-5",
+      "guideName": "Roberto Mendez",
+      "clientName": "Ana Martinez",
+      "tourType": "Ruta del Vino Premium",
+      "zone": "Valle Central",
+      "specialty": "vinos",
+      "status": "confirmed",
+      "bookingDate": "2025-07-18T16:45:00.000Z",
+      "tourDate": "2025-08-05T11:00:00.000Z",
+      "endDate": "2025-08-05T19:00:00.000Z",
+      "duration": 8,
+      "groupSize": 4,
+      "pricePerPerson": 80000,
+      "totalPrice": 320000,
+      "currency": "CLP",
+      "meetingPoint": "Viña Santa Rita, Alto Jahuel",
+      "coordinates": {
+        "lat": -34.1758,
+        "lng": -70.7394
+      },
+      "description": "Tour premium por 3 viñas boutique con cata de vinos reserva y maridaje",
+      "requirements": [
+        "Mayor de 18 años",
+        "Designar conductor responsable"
+      ],
+      "included": [
+        "Sommelier profesional",
+        "Cata en 3 viñas",
+        "Almuerzo con maridaje",
+        "Transporte entre viñas"
+      ],
+      "paymentStatus": "paid",
+      "paymentMethod": "credit_card",
+      "weatherConditions": "Soleado, ideal para viñedos",
+      "createdAt": "2025-07-18T16:45:00.000Z",
+      "updatedAt": "2025-07-18T16:45:00.000Z"
+    },
+    {
+      "id": "booking-6",
+      "userId": "user-2",
+      "guideId": "guide-1",
+      "guideName": "Carlos Rodriguez",
+      "clientName": "Ana Martinez",
+      "tourType": "Escalada en Roca",
+      "zone": "Cordillera de los Andes",
+      "specialty": "montañismo",
+      "status": "pending",
+      "bookingDate": "2025-07-21T20:30:00.000Z",
+      "tourDate": "2025-09-10T07:00:00.000Z",
+      "endDate": "2025-09-10T18:00:00.000Z",
+      "duration": 11,
+      "groupSize": 2,
+      "pricePerPerson": 95000,
+      "totalPrice": 190000,
+      "currency": "CLP",
+      "meetingPoint": "Cajón del Maipo, Sector El Morado",
+      "coordinates": {
+        "lat": -33.6456,
+        "lng": -70.1234
+      },
+      "description": "Curso intensivo de escalada en roca para nivel intermedio",
+      "requirements": [
+        "Experiencia previa en escalada",
+        "Examen médico reciente",
+        "Seguro de accidentes personal"
+      ],
+      "included": [
+        "Equipo completo de escalada",
+        "Instructor certificado",
+        "Almuerzo de montaña"
+      ],
+      "paymentStatus": "partial",
+      "paymentMethod": "transfer",
+      "weatherConditions": "Por confirmar",
+      "advancePayment": 95000,
+      "pendingPayment": 95000,
+      "createdAt": "2025-07-21T20:30:00.000Z",
+      "updatedAt": "2025-07-21T20:30:00.000Z"
+    }
+  ],
+  "reviews": [],
+  "favorites": [
+    {
+      "id": "fav-1753237101424",
+      "userId": "user-2",
+      "guideId": "guide-1",
+      "createdAt": "2025-07-23T02:18:21.424Z"
+    },
+    {
+      "id": "fav-1753239930755",
+      "userId": "user-2",
+      "guideId": "guide-2",
+      "createdAt": "2025-07-23T03:05:30.755Z"
+    },
+    {
+      "id": "fav-1753239934388",
+      "userId": "user-2",
+      "guideId": "guide-4",
+      "createdAt": "2025-07-23T03:05:34.388Z"
+    }
+  ],
+  "favoriteZones": [
+    {
+      "id": "fav-zone-1",
+      "userId": "user-2",
+      "zoneId": "zone-1",
+      "createdAt": "2025-07-22T22:30:00.000Z"
+    },
+    {
+      "id": "fav-zone-2",
+      "userId": "user-2",
+      "zoneId": "zone-3",
+      "createdAt": "2025-07-22T23:15:00.000Z"
+    }
+  ]
+}
