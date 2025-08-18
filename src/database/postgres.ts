@@ -1,15 +1,37 @@
 import { Pool } from 'pg';
 
-const POSTGRES_URI = process.env.POSTGRES_URI || 'postgresql://postgres:postgres@localhost:5432/tourist_guides';
+// Support multiple env var names and sensible defaults (match docker-compose)
+const CONNECTION_ENV = process.env.POSTGRES_URL || process.env.POSTGRES_URI || process.env.POSTGRES_CONNECTION || 'postgresql://postgres:password@localhost:5432/tourist_guides_db';
 
-export const pgPool = new Pool({
-  connectionString: POSTGRES_URI,
-});
+function maskConnectionString(conn: string) {
+  try {
+    // Basic mask: replace password between ':' and '@'
+    return conn.replace(/:\\w+@/, ':*****@');
+  } catch (e) {
+    return conn;
+  }
+}
 
-pgPool.on('connect', () => {
-  console.log('PostgreSQL conectado');
-});
+let pool: Pool | null = null;
 
-pgPool.on('error', (err) => {
-  console.error('Error en PostgreSQL:', err);
-});
+function createPool() {
+  try {
+    console.log('Postgres connecting to', maskConnectionString(CONNECTION_ENV));
+    const p = new Pool({ connectionString: CONNECTION_ENV });
+    p.on('connect', () => console.log('PostgreSQL conectado'));
+    p.on('error', (err) => console.error('Error en PostgreSQL pool:', err));
+    return p;
+  } catch (err) {
+    console.error('Failed to create Postgres pool:', err);
+    return null as any;
+  }
+}
+
+// Lazy create pool so app can start even if DB credentials are wrong; callers should handle empty pool
+try {
+  pool = createPool();
+} catch (err) {
+  console.error('Postgres pool init error:', err);
+}
+
+export const pgPool = pool as unknown as Pool;
