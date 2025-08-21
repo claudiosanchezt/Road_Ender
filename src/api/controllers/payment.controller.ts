@@ -3,15 +3,16 @@ import { PaymentService } from '../../services/payment.service';
 
 export class PaymentController {
   static async list(req: Request, res: Response) {
-    const items = await PaymentService.list();
-    res.json(items);
+  const items = await PaymentService.list();
+  res.json({ data: { methods: items } });
   }
 
   static async get(req: Request, res: Response) {
-    const id = Number(req.params.id);
-    const item = await PaymentService.get(id);
-    if (!item) return res.status(404).json({ message: 'Payment not found' });
-    res.json(item);
+  const id = Number(req.params.id);
+  if (isNaN(id)) return res.status(400).json({ error: 'Invalid id' });
+  const item = await PaymentService.get(id);
+  if (!item) return res.status(404).json({ error: 'Payment not found' });
+  res.json({ data: { method: item } });
   }
 
   static async create(req: Request, res: Response) {
@@ -24,16 +25,18 @@ export class PaymentController {
   }
 
   static async update(req: Request, res: Response) {
-    const id = Number(req.params.id);
-    const updated = await PaymentService.update(id, req.body);
-    if (!updated) return res.status(404).json({ message: 'Payment not found' });
-    res.json(updated);
+  const id = Number(req.params.id);
+  if (isNaN(id)) return res.status(400).json({ error: 'Invalid id' });
+  const updated = await PaymentService.update(id, req.body);
+  if (!updated) return res.status(404).json({ error: 'Payment not found' });
+  res.json({ data: { method: updated } });
   }
 
   static async remove(req: Request, res: Response) {
-    const id = Number(req.params.id);
-    const ok = await PaymentService.remove(id);
-    if (!ok) return res.status(404).json({ message: 'Payment not found' });
-    res.status(204).send();
+  const id = Number(req.params.id);
+  if (isNaN(id)) return res.status(400).json({ error: 'Invalid id' });
+  const ok = await PaymentService.remove(id);
+  if (!ok) return res.status(404).json({ error: 'Payment not found' });
+  res.status(204).send();
   }
 }

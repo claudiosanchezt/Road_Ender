@@ -184,3 +184,75 @@ Documentación y Ajustes Finales
 
 Actualizar Swagger/OpenAPI.
 Dejar todo listo para integración frontend/mobile.
+
+#####################################################################
+
+Hospedaje y Alimentación (nuevos componentes)
+
+Diagrama lógico (añadidos):
+
+-------------------+         +-------------------+         +-------------------+
+|   hospedajes     |<--------|   alimentacion    |-------->|      guides       |
+|-------------------|         |-------------------|         |-------------------|
+| id (PK)           |         | id (PK)           |         | id (PK)           |
+| name               |         | hospedaje_id (FK) |         | user_id (FK)      |
+| address            |         | type              |         | ...               |
+| zone_id (FK)       |         | price             |         +-------------------+
+| guide_id (FK)      |         | notes             |
+| description        |         +-------------------+
+| price              |
+| created_at         |
+-------------------+
+
+Relaciones propuestas:
+- `hospedajes.zone_id` -> `zones.id` (FK, index)
+- `hospedajes.guide_id` -> `guides.id` (FK, index)
+- `alimentacion.hospedaje_id` -> `hospedajes.id` (FK, index)
+
+Endpoints REST propuestos (ya documentados en OpenAPI):
+- GET  /api/hospedajes
+- GET  /api/hospedajes/:id
+- POST /api/hospedajes
+- PUT  /api/hospedajes/:id
+- DELETE /api/hospedajes/:id
+
+- GET  /api/hospedajes/:hospedajeId/alimentacion
+- GET  /api/hospedajes/:hospedajeId/alimentacion/:id
+- POST /api/hospedajes/:hospedajeId/alimentacion
+- PUT  /api/hospedajes/:hospedajeId/alimentacion/:id
+- DELETE /api/hospedajes/:hospedajeId/alimentacion/:id
+
+Qué queda por revisar / implementar en el backend (tareas y checklist):
+- Migraciones: comprobar que `database/add-hospedaje-alimentacion.sql` y `add-hospedaje-constraints.sql` están en el control de versiones y aplicadas en todos los entornos (dev/staging/prod).
+- Repositorios/Modelos:
+     - `src/models/hospedaje.model.ts` y `src/models/alimentacion.model.ts` (CRUD): revisar validaciones y tipos.
+     - Añadir índices/consultas optimizadas para búsquedas por `zone_id` y `guide_id`.
+- Servicios/Controllers:
+     - `src/api/controllers/hospedaje.controller.ts` y `alimentacion.controller.ts`: manejar validaciones (express-validator/zod), errores y permisos (propietario del recurso).
+- Rutas:
+     - `src/api/routes/hospedaje.ts` y `alimentacion.ts` deben registrar `mergeParams: true` en el router de alimentacion (ya implementado). Revisar orden de registro en `src/api/routes/index.ts`.
+- Autenticación / Autorización:
+     - Proteger endpoints sensibles con JWT (middleware `auth`) y verificar que `guide_id` sólo pueda ser asignado por usuarios autorizados.
+- Tests:
+     - Añadir tests de integración (Jest + supertest) — ya se añadieron `src/tests/api/hospedaje.int.test.ts` y `alimentacion.int.test.ts`.
+     - Añadir tests de error/validación y pruebas de concurrencia si aplica.
+- Documentación:
+     - `docs/swagger.json` actualizado con paths mínimos; añadir ejemplos y schemas completos (responses con ejemplos y códigos de error).
+- Docker / CI:
+     - Asegurar que `docs/` esté incluida en la imagen (se actualizó `Dockerfile.api` y `.dockerignore`).
+     - Añadir job en CI para ejecutar `npm run test:api` y validar `/api-docs` está accesible.
+- Observabilidad / Operaciones:
+     - Añadir métricas básicas y logs estructurados (request ids), healthchecks y readiness probes para contenedores.
+     - Automatizar backup y restore de tablas nuevas si aplica (scripts de respaldo ya existentes; integrar en cron/CI si procede).
+
+Notas de seguridad y calidad:
+- Hashear cualquier dato sensible; validar y sanitizar entradas; evitar inyección SQL usando consultas parametrizadas (pg pool ya usado).
+- Revisar permisos para creación/actualización de `hospedajes` (¿solo guías/administradores?), y para gestión de `alimentacion`.
+
+Implementación propuesta (pasos mínimos):
+1. Confirmar migraciones aplicadas en staging/prod.
+2. Revisar y endurecer validaciones en controllers (usar Zod o express-validator).
+3. Ampliar `docs/swagger.json` con ejemplos y respuestas completas.
+4. Añadir tests de errores y limpiar datos entre tests.
+5. Añadir CI job para build+tests+smoke `/api-docs`.
+

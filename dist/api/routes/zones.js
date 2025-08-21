@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const auth_1 = require("../middlewares/auth");
+const zone_controller_1 = require("../controllers/zone.controller");
+const zonesRouter = (0, express_1.Router)();
+zonesRouter.get('/', auth_1.authenticateJWT, zone_controller_1.ZoneController.list);
+zonesRouter.get('/:id', auth_1.authenticateJWT, zone_controller_1.ZoneController.get);
+zonesRouter.post('/', auth_1.authenticateJWT, zone_controller_1.ZoneController.create);
+zonesRouter.put('/:id', auth_1.authenticateJWT, zone_controller_1.ZoneController.update);
+zonesRouter.delete('/:id', auth_1.authenticateJWT, zone_controller_1.ZoneController.remove);
+exports.default = zonesRouter;

@@ -1,0 +1,235 @@
+DIAGRAMA ASCII: TABLAS, RELACIONES Y REPLICACIÓN
+
++--------------------------------------------------------------------------------+
+|                         Postgres (Transaccional)                               |
++--------------------------------------------------------------------------------+
+|                                                         +---------------------+|
+|                                                         |       users         ||
+|                                                         |---------------------||
+|                                                         | id (PK)             ||
+|                                                         | email               ||
+|                                                         | password_hash       ||
+|                                                         | ...                 ||
+|                                                         +---------------------+|
+|                                                                   ^            |
+|                                                                   |            |
+|                                      +----------------+    +------|------+     |
+|                                      |   bookings     |    |   guides    |     |
+|                                      |----------------|    |-------------|     |
+|                                      | id (PK)        |    | id (PK)     |     |
+|                                      | client_id (FK) |--->| user_id (FK)|     |
+|                                      | guide_id (FK)  |    | ...         |     |
+|                                      +----------------+    +-------------+     |
+|                                            ^                                          |
+|                                            |                                          |
+|                       +--------------------+--------------------+                    |
+|                       |                                         |                    |
+|                  +---------+                              +-----------+               |
+|                  | reviews |                              |  zones    |               |
+|                  |---------|                              |-----------|               |
+|                  | id (PK) |                              | id (PK)   |               |
+|                  | booking_id (FK)|                         | ...       |               |
+|                  +---------+                              +-----------+               |
+|                                                                                       |
+|  +---------------------------------------------------------------------------------+  |
+|  |                               hospedajes                                        |  |
+|  |---------------------------------------------------------------------------------|  |
+|  | id (PK)                                                                         |  |
+|  | name                                                                            |  |
+|  | address                                                                         |  |
+|  | zone_id (FK)  -> zones.id                                                       |  |
+|  | guide_id (FK) -> guides.id                                                      |  |
+|  | description                                                                      |  |
+|  | price                                                                           |  |
+|  | created_at                                                                       |  |
+|  +---------------------------------------------------------------------------------+  |
+|                ^                                                                      |
+|                |                                                                      |
+|  +-------------------------------+                                                     |
+|  | alimentacion_options          |                                                     |
+|  |-------------------------------|                                                     |
+|  | id (PK)                       |                                                     |
+|  | hospedaje_id (FK) -> hospedajes.id                                                 |
+|  | type                          |                                                     |
+|  | price                         |                                                     |
+|  | notes                         |                                                     |
+|  +-------------------------------+                                                     |
+|                                                                                       |
+|  +----------------+   +----------------+   +----------------+   +------------------+  |
+|  | specialties    |   | languages      |   | payments       |   | notifications     |  |
+|  | (id PK, ...)   |   | (id PK, ...)   |   | (id PK, ...)   |   | (id PK, ...)     |  |
+|  +----------------+   +----------------+   +----------------+   +------------------+  |
++----------------------------------------------------------------------------------------+
+
+FLUJO DE REPLICACIÓN (ETL)
+
+Postgres (tablas relacionales)
+    |
+    |  scripts/replicate-to-mongo.js  (servicio ETL)
+    |   - Conecta a Postgres usando POSTGRES_URL
+    |   - Conecta a MongoDB usando MONGODB_URI
+    |   - Detecta columnas dinámicamente (information_schema)
+    |   - Normaliza filas y hace bulkWrite (upsert) en Mongo
+    |   - Registra errores en colección `replication_errors`
+    v
++----------------------------------------------------------------------------------------+
+|                             MongoDB (DataMart / Analítica)                            |
+|  Colecciones típicas (replicadas desde Postgres):                                      |
+|    - hospedajes  (documentos upsertados desde postgres.hospedajes)                     |
+|    - alimentacion_options (desde postgres.alimentacion_options)                        |
+|    - replication_errors (logs de errores del ETL)                                      |
++----------------------------------------------------------------------------------------+
+
+NOTAS DE INTEGRIDAD Y FK
+- hospedajes.zone_id -> zones.id (índice recomendado)
+- hospedajes.guide_id -> guides.id (índice recomendado)
+- alimentacion_options.hospedaje_id -> hospedajes.id (índice recomendado)
+- El ETL corre como servicio `etl` dentro del docker-compose y debe tener acceso a la red compose
+
+
+MAPA DE ENDPOINTS (BASE: /api)
+Formato: (MÉTODO) /ruta  -- nota
+
+INFORMACIÓN Y DOCS
+- (GET) /api  -- info básica de la API
+- (GET) /api/health  -- health check
+- (GET) /api-docs   -- Swagger UI (presenta `docs/swagger.json` si existe)
+
+AUTENTICACIÓN
+- (POST) /api/auth/login
+- (POST) /api/auth/register
+- (POST) /api/auth/refresh
+- (GET)  /api/auth/profile  -- (auth required)
+- (PUT)  /api/auth/profile  -- (auth required)
+
+USUARIOS (requieren JWT en router)
+- (GET)  /api/users  -- (auth)
+- (GET)  /api/users/:id  -- (auth)
+- (POST) /api/users  -- (auth)
+- (PUT)  /api/users/:id  -- (auth)
+- (DELETE) /api/users/:id  -- (auth)
+- (GET)  /api/users/:id/bookings  -- relación
+
+GUÍAS (requieren JWT)
+- (GET) /api/guides
+- (GET) /api/guides/:id
+- (POST) /api/guides
+- (PUT) /api/guides/:id
+- (DELETE) /api/guides/:id
+- (GET) /api/guides/:id/specialties
+- (GET) /api/guides/:id/languages
+
+RESERVAS (bookings) (requieren JWT)
+- (GET)  /api/bookings
+- (GET)  /api/bookings/my
+- (GET)  /api/bookings/:id
+- (POST) /api/bookings
+- (PUT)  /api/bookings/:id
+- (DELETE) /api/bookings/:id
+
+ZONAS (requieren JWT)
+- (GET) /api/zones
+- (GET) /api/zones/:id
+- (POST) /api/zones
+- (PUT) /api/zones/:id
+- (DELETE) /api/zones/:id
+
+LUGARES TURÍSTICOS (requieren JWT)
+- (GET) /api/tourist-places
+- (GET) /api/tourist-places/:id
+- (POST) /api/tourist-places
+- (PUT) /api/tourist-places/:id
+- (DELETE) /api/tourist-places/:id
+
+ESPECIALIDADES (requieren JWT)
+- (GET) /api/specialties
+- (GET) /api/specialties/:id
+- (POST) /api/specialties
+- (PUT) /api/specialties/:id
+- (DELETE) /api/specialties/:id
+
+IDIOMAS (requieren JWT)
+- (GET) /api/languages
+- (GET) /api/languages/:id
+- (POST) /api/languages
+- (PUT) /api/languages/:id
+- (DELETE) /api/languages/:id
+
+PAGOS (requieren JWT)
+- (GET) /api/payments
+- (GET) /api/payments/methods
+- (GET) /api/payments/:id
+- (POST) /api/payments
+- (PUT) /api/payments/:id
+- (DELETE) /api/payments/:id
+
+FAVORITOS (requieren JWT)
+- (GET) /api/favorites
+- (GET) /api/favorites/guides
+- (GET) /api/favorites/zones
+- (GET) /api/favorites/:id
+- (POST) /api/favorites
+- (DELETE) /api/favorites/:id
+
+NOTIFICACIONES (requieren JWT)
+- (GET) /api/notifications
+- (GET) /api/notifications/:id
+- (POST) /api/notifications
+- (PUT) /api/notifications/:id
+- (DELETE) /api/notifications/:id
+
+ALERTAS METEOROLÓGICAS (requieren JWT)
+- (GET) /api/weather-alerts
+- (GET) /api/weather-alerts/:id
+- (POST) /api/weather-alerts
+- (PUT) /api/weather-alerts/:id
+- (DELETE) /api/weather-alerts/:id
+
+HOSPEDAJES
+- (GET) /api/hospedajes
+- (GET) /api/hospedajes/:id
+- (POST) /api/hospedajes
+- (PUT) /api/hospedajes/:id
+- (DELETE) /api/hospedajes/:id
+  (Nota: las rutas de `hospedaje` no aplican `authenticateJWT` en el router; revisar si deben protegerse)
+
+ALIMENTACIÓN (nested under hospedaje)
+- (GET) /api/hospedajes/:hospedajeId/alimentacion
+- (GET) /api/hospedajes/:hospedajeId/alimentacion/:id
+- (POST) /api/hospedajes/:hospedajeId/alimentacion
+- (PUT) /api/hospedajes/:hospedajeId/alimentacion/:id
+- (DELETE) /api/hospedajes/:hospedajeId/alimentacion/:id
+
+HOME / DATAMART
+- (GET) /api/home/stats  -- consulta al datamart (Mongo)
+
+
+PUERTO Y EJECUCIÓN
+- Puerto por defecto: 3000 (dev). En producción: 4000 si no se pasa PORT.
+  Código: `src/api/server.ts` (PORT = process.env.PORT ?? (NODE_ENV==='production' ? 4000 : 3000)).
+- Para ver Swagger desde el navegador en tu máquina local con docker-compose, debes exponer el puerto 4000 del servicio API al host o usar un contenedor temporal que mapee ese puerto.
+
+SUGERENCIA: ACTUALIZAR `docker-compose.yml` para agregar un servicio `api` (o exponer puerto del `web` o `etl` según corresponda) y mapear `4000:4000` para que puedas abrir http://localhost:4000/api-docs desde tu browser.
+
+EJEMPLO (sugerido) — fragmento para añadir a `docker-compose.yml`:
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    image: road_ender-api
+    environment:
+      - POSTGRES_URL=${POSTGRES_URL}
+      - MONGODB_URI=${MONGODB_URI}
+      - PORT=4000
+    ports:
+      - "4000:4000"
+    depends_on:
+      - postgres
+      - mongodb
+    networks:
+      - tourist-guides-network
+
+(Con esto el endpoint /api-docs quedará accesible en http://localhost:4000/api-docs )
+
+-- Fin del archivo

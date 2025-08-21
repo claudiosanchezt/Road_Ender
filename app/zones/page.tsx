@@ -1,11 +1,10 @@
 import React from 'react';
-import ZoneList from '../../components/ZoneList';
+import ZonesPageClient from '../../components/ZonesPageClient';
 
 export default function ZonesPage() {
   return (
     <main>
-      <h1>Zonas</h1>
-      <ZoneList />
+      <ZonesPageClient />
     </main>
   );
 }

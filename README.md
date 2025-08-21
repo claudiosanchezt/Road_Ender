@@ -95,6 +95,30 @@ npm run docker:run
 - Analytics de zonas turísticas
 - Datos climáticos históricos
 
+#### Replicación automática (ETL) a MongoDB
+
+Se incluye un script simple que replica datos desde PostgreSQL hacia MongoDB (datamart) usando upserts. El script está en `scripts/replicate-to-mongo.js`.
+
+Modo de uso:
+
+Ejecutar una sola vez (útil para migraciones o seed inicial):
+
+```powershell
+# desde la raíz del repo
+SET POSTGRES_URL=postgresql://postgres:password@localhost:5432/tourist_guides_db; SET MONGODB_URI=mongodb://admin:password@localhost:27017/tourist_guides_datamart?authSource=admin; SET RUN_ONCE=1; npm run etl:replicate
+```
+
+Ejecutar en modo daemon (polling cada intervalo):
+
+```powershell
+SET POSTGRES_URL=...; SET MONGODB_URI=...; SET POLL_INTERVAL_MS=60000; npm run etl:replicate
+```
+
+Notas:
+- El script realiza upserts por `_id` (usa `id` de Postgres como `_id` en Mongo).
+- Asegúrate de que las variables de entorno `POSTGRES_URL` y `MONGODB_URI` apunten a tus servicios en producción/staging.
+- Para entornos Docker, puedes ejecutar el script en un contenedor separado o como parte del contenedor `api` si lo deseas.
+
 ### PostgreSQL (Transaccional)
 - Usuarios y autenticación
 - Reservas y pagos

@@ -1,7 +1,5 @@
-import { redirect } from 'next/navigation'
+import HomePage from '../src/app/page';
 
-export default function RootPage() {
-  // Redirige al listado de zonas existente para evitar 404 mientras
-  // mantenemos la estructura actual en `src/app`.
-  redirect('/zones')
+export default function Root() {
+  return <HomePage />;
 }

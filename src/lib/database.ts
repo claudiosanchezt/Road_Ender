@@ -27,7 +27,8 @@ export async function disconnectMongoDB() {
 // Configuración PostgreSQL (Transaccional)
 const postgresConfig = {
   connectionString: process.env.POSTGRES_URL || 'postgresql://postgres:password@localhost:5432/tourist_guides_db',
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+  // Controlar SSL vía POSTGRES_SSL (valor 'true' para habilitar). Por defecto false.
+  ssl: (process.env.POSTGRES_SSL === 'true') ? { rejectUnauthorized: false } : false,
   max: 20,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000,

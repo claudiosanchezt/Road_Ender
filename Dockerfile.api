@@ -1,0 +1,34 @@
+FROM node:18-alpine AS builder
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
+
+# copy package manifest and install all dependencies (including dev) for build
+COPY package.json package-lock.json* ./
+RUN npm ci
+
+# copy sources and build the API using the dedicated tsconfig
+COPY . .
+# Ensure docs are available in the builder stage
+COPY docs ./docs
+RUN npm run api:build
+
+FROM node:18-alpine AS runtime
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
+
+# Install only production dependencies in the final image
+COPY package.json package-lock.json* ./
+RUN npm ci --only=production
+
+# Copy built artifacts from builder stage
+COPY --from=builder /app/dist ./dist
+# Copy documentation so swagger UI is available at runtime
+COPY --from=builder /app/docs ./docs
+# Copy auxiliary scripts (ETL, maintenance) into runtime image
+COPY --from=builder /app/scripts ./scripts
+
+EXPOSE 4000
+ENV PORT=4000
+ENV NODE_ENV=production
+
+CMD ["node", "dist/api/server.js"]

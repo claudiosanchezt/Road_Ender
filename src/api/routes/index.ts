@@ -6,10 +6,13 @@ import zonesRouter from './zones';
 import touristPlacesRouter from './tourist-places';
 import specialtiesRouter from './specialties';
 import languagesRouter from './languages';
+import hospedajeRouter from './hospedaje';
+import alimentacionRouter from './alimentacion';
 import paymentsRouter from './payments';
 import favoritesRouter from './favorites';
 import notificationsRouter from './notifications';
 import weatherAlertsRouter from './weather-alerts';
+import homeRouter from './home';
 
 import userRelationsRouter from './user-relations';
 
@@ -35,5 +38,8 @@ router.use('/payments', paymentsRouter);
 router.use('/favorites', favoritesRouter);
 router.use('/notifications', notificationsRouter);
 router.use('/weather-alerts', weatherAlertsRouter);
+router.use('/hospedajes', hospedajeRouter);
+router.use('/hospedajes/:hospedajeId/alimentacion', alimentacionRouter);
+router.use('/home', homeRouter);
 
 export default router;

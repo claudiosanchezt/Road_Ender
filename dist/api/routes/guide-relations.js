@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const auth_1 = require("../middlewares/auth");
+const guide_relations_controller_1 = require("../controllers/guide-relations.controller");
+const guideRelationsRouter = (0, express_1.Router)();
+guideRelationsRouter.get('/:id/specialties', auth_1.authenticateJWT, guide_relations_controller_1.GuideRelationsController.specialties);
+guideRelationsRouter.get('/:id/languages', auth_1.authenticateJWT, guide_relations_controller_1.GuideRelationsController.languages);
+guideRelationsRouter.get('/:id/zones', auth_1.authenticateJWT, guide_relations_controller_1.GuideRelationsController.zones);
+guideRelationsRouter.get('/:id/tourist-places', auth_1.authenticateJWT, guide_relations_controller_1.GuideRelationsController.touristPlaces);
+exports.default = guideRelationsRouter;

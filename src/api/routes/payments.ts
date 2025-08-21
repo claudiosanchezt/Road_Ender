@@ -5,6 +5,7 @@ import { PaymentController } from '../controllers/payment.controller';
 const paymentsRouter = Router();
 
 paymentsRouter.get('/', authenticateJWT, PaymentController.list);
+paymentsRouter.get('/methods', authenticateJWT, PaymentController.list);
 paymentsRouter.get('/:id', authenticateJWT, PaymentController.get);
 paymentsRouter.post('/', authenticateJWT, PaymentController.create);
 paymentsRouter.put('/:id', authenticateJWT, PaymentController.update);

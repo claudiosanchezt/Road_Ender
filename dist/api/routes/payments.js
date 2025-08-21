@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const auth_1 = require("../middlewares/auth");
+const payment_controller_1 = require("../controllers/payment.controller");
+const paymentsRouter = (0, express_1.Router)();
+paymentsRouter.get('/', auth_1.authenticateJWT, payment_controller_1.PaymentController.list);
+paymentsRouter.get('/methods', auth_1.authenticateJWT, payment_controller_1.PaymentController.list);
+paymentsRouter.get('/:id', auth_1.authenticateJWT, payment_controller_1.PaymentController.get);
+paymentsRouter.post('/', auth_1.authenticateJWT, payment_controller_1.PaymentController.create);
+paymentsRouter.put('/:id', auth_1.authenticateJWT, payment_controller_1.PaymentController.update);
+paymentsRouter.delete('/:id', auth_1.authenticateJWT, payment_controller_1.PaymentController.remove);
+exports.default = paymentsRouter;

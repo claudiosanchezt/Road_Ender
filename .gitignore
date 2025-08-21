@@ -45,6 +45,9 @@ docker-compose.yml
 *.sqlite
 *.db
 
+# Backups
+backups/
+
 # Logs
 logs
 *.log

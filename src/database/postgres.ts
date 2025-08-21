@@ -6,7 +6,7 @@ const CONNECTION_ENV = process.env.POSTGRES_URL || process.env.POSTGRES_URI || p
 function maskConnectionString(conn: string) {
   try {
     // Basic mask: replace password between ':' and '@'
-    return conn.replace(/:\\w+@/, ':*****@');
+    return conn.replace(/:\w+@/, ':*****@');
   } catch (e) {
     return conn;
   }
@@ -23,7 +23,7 @@ function createPool() {
     return p;
   } catch (err) {
     console.error('Failed to create Postgres pool:', err);
-    return null as any;
+    return null;
   }
 }
 
@@ -34,4 +34,5 @@ try {
   console.error('Postgres pool init error:', err);
 }
 
+// Exportar con cast para evitar checks de null en lugares que asumen pool presente
 export const pgPool = pool as unknown as Pool;

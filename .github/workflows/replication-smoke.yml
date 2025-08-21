@@ -1,0 +1,32 @@
+name: Replication smoke
+
+on:
+  push:
+    branches: [ 'fix/diagram-cleanup' ]
+
+jobs:
+  replication-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check required secrets
+        run: |
+          if [ -z "${{ secrets.POSTGRES_URL }}" ]; then echo "POSTGRES_URL secret is missing"; exit 1; fi
+          if [ -z "${{ secrets.MONGODB_URI }}" ]; then echo "MONGODB_URI secret is missing"; exit 1; fi
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install deps
+        run: npm ci
+      - name: Run replication check
+        env:
+          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+        run: node ./scripts/replication-check.js
+      - name: Run ETL once
+        env:
+          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          RUN_ONCE: '1'
+        run: node ./scripts/replicate-to-mongo.js
+    env: {}

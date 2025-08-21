@@ -22,6 +22,11 @@ export class BookingModelRepository {
     return res.rows[0] || null;
   }
 
+  static async findByClient(clientId: string): Promise<Booking[]> {
+    const res = await pgPool.query('SELECT * FROM bookings WHERE client_id = $1 ORDER BY id', [clientId]);
+    return res.rows || [];
+  }
+
   static async create(payload: Partial<Booking>): Promise<Booking> {
     const res = await pgPool.query(
       `INSERT INTO bookings (client_id, guide_id, zone_id, tourist_place_id, start_date, end_date) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *`,

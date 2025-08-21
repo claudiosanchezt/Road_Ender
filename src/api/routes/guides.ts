@@ -10,26 +10,26 @@ let guides = [
 ];
 
 // Listar guías (protegido)
-guidesRouter.get('/', authenticateJWT, (req, res) => res.json(guides));
+guidesRouter.get('/', authenticateJWT, (req, res) => res.json({ data: { guides } }));
 // Obtener guía por ID (protegido)
 guidesRouter.get('/:id', authenticateJWT, (req, res) => {
 	const guide = guides.find(g => g.id === parseInt(req.params.id));
 	if (!guide) return res.status(404).json({ error: 'No encontrado' });
-	res.json(guide);
+	res.json({ data: { guide } });
 });
 // Crear guía (protegido)
 guidesRouter.post('/', authenticateJWT, (req, res) => {
 	const { name, specialties, languages, userId } = req.body;
 	const newGuide = { id: guides.length + 1, name, specialties, languages, userId };
 	guides.push(newGuide);
-	res.status(201).json(newGuide);
+	res.status(201).json({ data: { guide: newGuide } });
 });
 // Actualizar guía (protegido)
 guidesRouter.put('/:id', authenticateJWT, (req, res) => {
 	const guide = guides.find(g => g.id === parseInt(req.params.id));
 	if (!guide) return res.status(404).json({ error: 'No encontrado' });
 	Object.assign(guide, req.body);
-	res.json(guide);
+	res.json({ data: { guide } });
 });
 // Eliminar guía (protegido)
 guidesRouter.delete('/:id', authenticateJWT, (req, res) => {

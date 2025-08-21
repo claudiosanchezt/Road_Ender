@@ -3,11 +3,14 @@
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 // import { GuidesVerticalCarousel } from './GuidesVerticalCarousel';
 import useGuides from '@/hooks/useGuides';
 import { useSimpleDestinations } from '@/hooks/useSimpleDestinations';
 import { useHeroImages } from '@/hooks/useHeroImages';
+import { setAuthToken, api } from '@/lib/apiClient';
+import { useRouter } from 'next/navigation';
+// ...existing code...
 
 const SimplePremiumLayout: React.FC = () => {
   // Hooks para obtener datos desde el backend
@@ -48,9 +51,126 @@ const SimplePremiumLayout: React.FC = () => {
     return () => clearInterval(interval);
   }, [isGuidesPaused, guidesTotalPages, nextGuidesPage]);
 
+  const router = useRouter();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [suggestions, setSuggestions] = useState<any[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const debounceRef = useRef<number | null>(null);
+  const [zonesCount, setZonesCount] = useState<number | null>(null);
+  const [guidesCount, setGuidesCount] = useState<number | null>(null);
+
+  // Fetch simple counts for hero (best-effort)
+  useEffect(() => {
+    let mounted = true;
+    async function fetchCounts() {
+      try {
+        const [zonesRes, guidesRes] = await Promise.all([
+          api.get('/zones?limit=100'),
+          api.get('/guides?limit=100')
+        ]);
+        if (!mounted) return;
+        setZonesCount(Array.isArray(zonesRes.data) ? zonesRes.data.length : null);
+        setGuidesCount(Array.isArray(guidesRes.data) ? guidesRes.data.length : null);
+      } catch (e) {
+        // ignore - counts are decorative
+        if (mounted) {
+          setZonesCount(null);
+          setGuidesCount(null);
+        }
+      }
+    }
+    fetchCounts();
+    return () => { mounted = false; };
+  }, []);
+
+  // Debounced typeahead using existing datamart search API
+  useEffect(() => {
+    if (!searchTerm || searchTerm.trim().length < 2) {
+      setSuggestions([]);
+      return;
+    }
+    if (debounceRef.current) window.clearTimeout(debounceRef.current);
+    debounceRef.current = window.setTimeout(async () => {
+      try {
+        const q = encodeURIComponent(searchTerm.trim());
+        const res = await fetch(`/api/home/search?q=${q}&limit=6`);
+        const json = await res.json();
+        if (json && json.success && Array.isArray(json.data.results)) {
+          setSuggestions(json.data.results.slice(0,6));
+          setShowSuggestions(true);
+        } else {
+          setSuggestions([]);
+        }
+      } catch (e) {
+        setSuggestions([]);
+      }
+    }, 300);
+    return () => { if (debounceRef.current) window.clearTimeout(debounceRef.current); };
+  }, [searchTerm]);
+
   return (
     <div className="min-h-screen bg-stone-50">
-      {/* Sección de Destinos */}
+      {/* HERO PRINCIPAL - Top */}
+      <header className="relative bg-gradient-to-b from-amber-50 to-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div>
+              <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-slate-900 mb-6">
+                Explora Sudamérica con guías locales expertos
+              </h1>
+              <p className="text-lg text-slate-600 mb-6 max-w-xl">
+                Reserva experiencias auténticas, descubre zonas destacadas y conecta con guías apasionados.
+              </p>
+              <div className="flex flex-wrap gap-3 mb-6">
+                <button onClick={() => router.push('/zones')} className="px-6 py-3 bg-amber-500 text-white rounded-xl font-semibold hover:scale-105 transition">Ver Zonas {zonesCount ? `(${zonesCount})` : ''}</button>
+                <button onClick={() => router.push('/guides')} className="px-6 py-3 bg-slate-800 text-white rounded-xl font-semibold hover:scale-105 transition">Ver Guías {guidesCount ? `(${guidesCount})` : ''}</button>
+                <a href="#destinos" className="px-6 py-3 border border-slate-200 rounded-xl text-slate-700 hover:bg-slate-50 transition">Explorar Destinos</a>
+              </div>
+              <div className="relative w-full md:w-auto">
+                <div className="flex items-center gap-3">
+                  <input id="site-search" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} onFocus={() => setShowSuggestions(true)} onBlur={() => setTimeout(() => setShowSuggestions(false), 150)} placeholder="Buscar zona, lugar o guía..." className="w-full md:w-80 px-4 py-3 rounded-lg border border-stone-200" />
+                  <button onClick={() => router.push(`/zones?q=${encodeURIComponent(searchTerm)}`)} className="px-4 py-3 bg-emerald-600 text-white rounded-lg">Buscar</button>
+                </div>
+                {showSuggestions && suggestions.length > 0 && (
+                  <ul className="absolute z-50 mt-2 w-full md:w-80 bg-white border border-stone-200 rounded-lg shadow-lg overflow-hidden">
+                    {suggestions.map((sug, idx) => (
+                      <li key={sug.id || idx} className="px-4 py-3 hover:bg-slate-50 cursor-pointer" onMouseDown={() => { router.push(`/zones?q=${encodeURIComponent(sug.name || sug.placeName || sug.location?.zone?.name || '')}`); }}>
+                        <div className="text-sm font-semibold text-slate-800">{sug.name || sug.placeName}</div>
+                        <div className="text-xs text-slate-500">{sug.location?.country?.name || sug.location?.zone || ''}</div>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+              {/* Dev token quick input */}
+              <div className="mt-6 flex items-center gap-3">
+                <input id="dev-token" placeholder="JWT dev token (opcional)" className="w-full md:w-96 px-3 py-2 rounded-md border border-stone-200" />
+                <button
+                  onClick={() => {
+                    const el = document.getElementById('dev-token') as HTMLInputElement | null;
+                    const token = el?.value?.trim();
+                    setAuthToken(token || undefined);
+                    if (token) localStorage.setItem('dev_token', token);
+                    else localStorage.removeItem('dev_token');
+                    // small feedback
+                    el && (el.placeholder = token ? 'Token aplicado' : 'Token eliminado');
+                  }}
+                  className="px-4 py-2 bg-sky-600 text-white rounded-md"
+                >
+                  Aplicar token
+                </button>
+              </div>
+            </div>
+            <div className="hidden lg:block">
+              {/* Placeholder hero image */}
+              <div className="w-full h-80 rounded-3xl overflow-hidden shadow-xl">
+                <img src="/images/hero/road-ender-hero.svg" alt="Hero" className="w-full h-full object-cover" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+  {/* Sección de Destinos */}
       <section className="py-20 bg-gradient-to-b from-white via-stone-25 to-stone-50 overflow-visible">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-visible">
           <div className="text-center mb-16 relative">

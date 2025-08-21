@@ -1,5 +1,4 @@
 // Configuración JWT - Tourist Guides App
-import { JwtPayload } from 'jsonwebtoken'
 
 export interface JwtConfig {
   secret: string
@@ -9,7 +8,7 @@ export interface JwtConfig {
   audience: string
 }
 
-export interface TokenPayload extends JwtPayload {
+export interface TokenPayload {
   userId: number
   email: string
   userType: 'client' | 'guide' | 'admin'
@@ -17,7 +16,7 @@ export interface TokenPayload extends JwtPayload {
   permissions: string[]
 }
 
-export interface RefreshTokenPayload extends JwtPayload {
+export interface RefreshTokenPayload {
   userId: number
   tokenVersion: number
 }
