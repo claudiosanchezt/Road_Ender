@@ -6,9 +6,9 @@ export default function FeaturedZoneCard({ zone }: { zone: Zone }) {
   return (
     <article className="featured-zone-card relative rounded-lg overflow-hidden shadow-lg">
       <div className="h-56 md:h-64 lg:h-72 bg-gray-200">
-        {zone.hero_image ? (
+        { (zone as any).thumbnail || zone.hero_image ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={zone.hero_image} alt={zone.name} className="w-full h-full object-cover" />
+          <img src={(zone as any).thumbnail || zone.hero_image} alt={zone.name} className="w-full h-full object-cover" />
         ) : (
           <div className="guide-image-placeholder h-full flex items-center justify-center text-4xl">{zone.name.charAt(0)}</div>
         )}

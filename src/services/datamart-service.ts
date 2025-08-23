@@ -4,7 +4,19 @@ import mongoose from 'mongoose';
 export function getDatamartService() {
 	return {
 		async getFilteredPlaces(_opts: any) {
-			return [] as any[];
+			const limit = _opts?.limit || 12;
+			const pool = getPostgresPool();
+			// Simple implementation: read active tourist_places from Postgres
+			const q = `SELECT id, name, description, images, is_active FROM tourist_places WHERE is_active = true ORDER BY id DESC LIMIT $1`;
+			const res = await pool.query(q, [limit]);
+			return res.rows.map((r: any) => ({
+				placeId: r.id,
+				placeName: r.name,
+				description: r.description,
+				images: Array.isArray(r.images) ? r.images : [],
+				analytics: { averageRating: 0, totalVisits: 0, totalBookings: 0 },
+				isFeatured: !!r.is_active
+			}));
 		},
 
 		async searchPlaces(_q: string, _limit?: number) {

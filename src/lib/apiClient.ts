@@ -4,7 +4,13 @@ import axios from 'axios';
 // En el navegador usamos la ruta relativa '/api' para evitar CORS y
 // para dejar que Next haga el proxy/rewrite hacia el backend en :4000.
 const isBrowser = typeof window !== 'undefined';
-const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? (isBrowser ? '/api' : 'http://localhost:4000');
+const API_BASE = (() => {
+  if (process.env.NEXT_PUBLIC_API_URL) return process.env.NEXT_PUBLIC_API_URL;
+  if (isBrowser) {
+    try { return `${window.location.protocol}//${window.location.hostname}:4000`; } catch { return '/api'; }
+  }
+  return 'http://api:4000';
+})();
 
 export const api = axios.create({
   baseURL: API_BASE,

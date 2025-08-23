@@ -2,7 +2,13 @@
 // hacia el servicio `api` en la red Docker. En el navegador seguiremos
 // respetando NEXT_PUBLIC_API_URL o el proxy relativo.
 const isBrowser = typeof window !== 'undefined';
-export const API_BASE = process.env.NEXT_PUBLIC_API_URL || (isBrowser ? '/api' : 'http://api:4000');
+export const API_BASE = (() => {
+  if (process.env.NEXT_PUBLIC_API_URL) return process.env.NEXT_PUBLIC_API_URL;
+  if (isBrowser) {
+    try { return `${window.location.protocol}//${window.location.hostname}:4000`; } catch { return '/api'; }
+  }
+  return 'http://api:4000';
+})();
 
 type Hospedaje = {
   id: number;

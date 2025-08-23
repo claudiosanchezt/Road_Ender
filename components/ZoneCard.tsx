@@ -6,9 +6,9 @@ export default function ZoneCard({ zone }: { zone: Zone }) {
   return (
     <article className="zone-card card p-4 rounded-lg shadow-sm bg-white glass-effect">
       <div className="h-40 bg-gray-100 rounded-md mb-3 overflow-hidden">
-        {zone.hero_image ? (
+        { (zone as any).thumbnail || zone.hero_image ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={zone.hero_image} alt={zone.name} className="w-full h-full object-cover" />
+          <img src={(zone as any).thumbnail || zone.hero_image} alt={zone.name} className="w-full h-full object-cover" />
         ) : (
           <div className="guide-image-placeholder h-full">{zone.name.charAt(0)}</div>
         )}

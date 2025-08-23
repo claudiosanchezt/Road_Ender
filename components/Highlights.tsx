@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef, useCallback, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import { SAMPLE_ZONES } from '../src/lib/fake-data';
@@ -20,7 +20,8 @@ const SAMPLE_HIGHLIGHTS: Highlight[] = SAMPLE_ZONES.map((z) => ({
 }));
 
 export default function Highlights({ items = SAMPLE_HIGHLIGHTS }: { items?: Highlight[] }) {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ containScroll: 'trimSnaps', align: 'start', loop: true }, [Autoplay({ delay: 4000 })]);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ containScroll: 'trimSnaps', align: 'start', loop: true, skipSnaps: false }, [Autoplay({ delay: 4500, stopOnInteraction: false })]);
+  const [slides, setSlides] = useState<Highlight[]>(items);
 
   const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
@@ -59,53 +60,77 @@ export default function Highlights({ items = SAMPLE_HIGHLIGHTS }: { items?: High
     return () => emblaApi.off('scroll', onScroll);
   }, [emblaApi]);
 
+  // Fetch featured places (tours) from the API and map to slides
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      try {
+        const apiPath = '/api/home/featured-places?limit=10';
+        const isServer = typeof window === 'undefined';
+        // Use INTERNAL_API_URL on the server (container) so SSR can reach the api service.
+        // Use NEXT_PUBLIC_API_URL on the client if provided, otherwise fallback to host:4000.
+        const apiBase = isServer
+          ? (process.env.INTERNAL_API_URL || process.env.NEXT_PUBLIC_API_URL || '')
+          : ((process.env.NEXT_PUBLIC_API_URL && process.env.NEXT_PUBLIC_API_URL !== '')
+              ? process.env.NEXT_PUBLIC_API_URL
+              : `${window.location.protocol}//${window.location.hostname}:4000`);
+        const res = await fetch((apiBase ? apiBase : '') + apiPath);
+        if (!res.ok) throw new Error(`status ${res.status}`);
+        const json = await res.json();
+        const places = json?.data?.places as any[] | undefined;
+        if (!places || !Array.isArray(places) || places.length === 0) return;
+
+        // Order by popularity: bookings desc, then visits
+        places.sort((a: any, b: any) => {
+          const ab = a?.analytics?.bookings ?? 0;
+          const bb = b?.analytics?.bookings ?? 0;
+          if (bb !== ab) return bb - ab;
+          const av = a?.analytics?.visits ?? 0;
+          const bv = b?.analytics?.visits ?? 0;
+          return bv - av;
+        });
+
+        // Map to our Highlight type: use images.main when available
+        const mapped: Highlight[] = places.map((p: any, i: number) => ({
+          id: p.id ?? i,
+          title: p.name,
+          image: p.images?.main || p.images?.gallery?.[0] || '',
+          subtitle: p.description || ''
+        }));
+
+        if (mounted && mapped.length) setSlides(mapped);
+      } catch (err) {
+        // keep fallback slides
+      }
+    })();
+    return () => { mounted = false; };
+  }, []);
+
   return (
     <section className="mt-12">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-semibold">Lo más solicitado por zona</h2>
-          <a href="/zones" className="text-sm text-sky-600 hover:underline">Ver todas las zonas</a>
+          <h2 className="text-2xl font-semibold">Tours más solicitados</h2>
+          <a href="/tours" className="text-sm text-sky-600 hover:underline">Ver todos los tours</a>
         </div>
 
         <div className="relative">
           <div className="overflow-hidden" ref={emblaRef}>
             <div className="flex gap-4" role="list">
-              {items.map((it, idx) => (
-                <article key={it.id} className="min-w-[320px] flex-shrink-0 bg-white rounded-xl overflow-hidden shadow card-hover group transform transition-all duration-300 hover:scale-[1.02]">
-                  <div className="relative h-48 bg-gray-100 overflow-hidden">
-                    <div className="parallax absolute inset-0 transition-transform will-change-transform">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={it.image} alt={it.title} className="w-full h-48 object-cover" />
-                    </div>
-                    <div className="absolute bottom-3 left-3 bg-black/40 text-white px-3 py-1 rounded-md text-sm">{it.title}</div>
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-semibold text-lg">{it.title}</h3>
-                    {it.subtitle && <p className="text-sm text-gray-600 mt-2">{it.subtitle}</p>}
+              {slides.map((it, idx) => (
+                <article key={it.id} className="min-w-full flex-shrink-0 rounded-lg overflow-hidden relative">
+                  <div className="relative h-72 sm:h-96 bg-gray-900 overflow-hidden">
+                    {/* imagen principal */}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={it.image} alt={it.title} className="w-full h-full object-cover" />
 
-                    {/* Mini-perfiles de guías (tomas las primeras 3 si existen) */}
-                    <div className="mt-4 flex items-center gap-3">
-                      {(zoneGuidesMap[it.title] || []).slice(0, 3).map((g: any) => (
-                        <div key={g.id} className="flex items-center gap-2 bg-gray-50 rounded-lg px-2 py-1">
-                          {g.avatar ? (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img src={g.avatar} alt={g.name} className="w-10 h-10 rounded-full object-cover border-2 border-white shadow" />
-                          ) : (
-                            <div className="w-10 h-10 rounded-full bg-sky-200 flex items-center justify-center text-sm font-semibold text-sky-800">
-                              {g.name.split(' ').map((n: string) => n[0]).slice(0,2).join('')}
-                            </div>
-                          )}
-                          <div className="text-xs">
-                            <div className="font-medium">{g.name}</div>
-                            <div className="text-gray-500">{g.rating} ★ · {g.reviews}</div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+                    {/* overlay degradado */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent pointer-events-none" />
 
-                    <div className="mt-4 flex items-center gap-2">
-                      <button className="text-sm px-3 py-2 bg-sky-600 text-white rounded-md">Ver tours</button>
-                      <button className="text-sm px-3 py-2 border rounded-md">Ver guías</button>
+                    {/* título centrado abajo */}
+                    <div className="absolute left-6 right-6 bottom-6 text-white">
+                      <h3 className="text-xl sm:text-3xl font-semibold drop-shadow-md">{it.title}</h3>
+                      {it.subtitle && <p className="text-sm sm:text-base text-gray-200 mt-1 max-w-2xl">{it.subtitle}</p>}
                     </div>
                   </div>
                 </article>
@@ -113,8 +138,12 @@ export default function Highlights({ items = SAMPLE_HIGHLIGHTS }: { items?: High
             </div>
           </div>
 
-          <button onClick={scrollPrev} aria-label="Anterior" className="absolute left-0 top-1/2 -translate-y-1/2 bg-white rounded-full p-2 shadow">‹</button>
-          <button onClick={scrollNext} aria-label="Siguiente" className="absolute right-0 top-1/2 -translate-y-1/2 bg-white rounded-full p-2 shadow">›</button>
+          <div className="absolute left-4 top-1/2 -translate-y-1/2">
+            <button onClick={scrollPrev} aria-label="Anterior" className="bg-white rounded-full p-2 shadow">‹</button>
+          </div>
+          <div className="absolute right-4 top-1/2 -translate-y-1/2">
+            <button onClick={scrollNext} aria-label="Siguiente" className="bg-white rounded-full p-2 shadow">›</button>
+          </div>
         </div>
       </div>
     </section>
